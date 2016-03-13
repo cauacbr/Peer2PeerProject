@@ -16,7 +16,6 @@ public class Peer2PeerProject {
         int port = 6789;
         UserData user;
         Criptografar cript = new Criptografar();
-        
 
         InetAddress group = InetAddress.getByName(ip);
         MulticastSocket ms = new MulticastSocket(port);
@@ -27,9 +26,9 @@ public class Peer2PeerProject {
 
         cs = new ConnectionSend(ms, userName, group, port, cript);
         cs.start();
-        tela = new Interface(cs);
-        cr = new ConnectionReceive(ms, userName, tela, user, cript);
+        cr = new ConnectionReceive(ms, userName, user, cript);
         cr.start();
+        tela = new Interface(cs);
         tela.setVisible(true);
 
     }
