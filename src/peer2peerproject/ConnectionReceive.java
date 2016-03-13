@@ -1,7 +1,5 @@
 package peer2peerproject;
 
-import static com.sun.jmx.snmp.ThreadContext.contains;
-import com.sun.xml.internal.ws.util.StringUtils;
 import java.io.IOException;
 import java.net.*;
 import java.util.logging.Level;
