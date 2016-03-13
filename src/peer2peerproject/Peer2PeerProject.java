@@ -10,7 +10,7 @@ public class Peer2PeerProject {
         Scanner sc = new Scanner(System.in);
         ConnectionSend cs;
         ConnectionReceive cr;
-        
+
         String ip = "224.224.224.224", userName;
         int port = 6789;
         InetAddress group = InetAddress.getByName(ip);
@@ -21,11 +21,10 @@ public class Peer2PeerProject {
 
         cs = new ConnectionSend(ms, userName, group, port);
         cs.start();
-        cr = new ConnectionReceive(ms, userName);
-        cr.start();
         Interface tela = new Interface(cs);
+        cr = new ConnectionReceive(ms, userName, tela);
+        cr.start();
         tela.setVisible(true);
-        
 
     }
 }
