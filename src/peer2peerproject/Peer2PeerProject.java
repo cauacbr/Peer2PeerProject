@@ -24,7 +24,7 @@ public class Peer2PeerProject {
         userName = sc.nextLine();
         user = new UserData(userName, group, cript.getPublicKey());
 
-        cs = new ConnectionSend(ms, userName, group, port, cript);
+        cs = new ConnectionSend(ms, userName, group, port, cript, user);
         cs.start();
         cr = new ConnectionReceive(ms, userName, user, cript);
         cr.start();
