@@ -9,10 +9,14 @@ public class ConnectionReceive extends Thread {
 
     MulticastSocket ms = null;
     String userName, receivedString;
+    UserData user;
+    Criptografar cript;
 
-    public ConnectionReceive(MulticastSocket ms, String userName) throws UnknownHostException {
+    public ConnectionReceive(MulticastSocket ms, String userName, UserData user, Criptografar cript) throws UnknownHostException {
         this.ms = ms;
-        this.userName = userName + "@";
+        this.userName = userName;
+        this.user = user;
+        this.cript = cript;
     }
 
     @Override
@@ -26,9 +30,11 @@ public class ConnectionReceive extends Thread {
             } catch (IOException ex) {
                 Logger.getLogger(ConnectionReceive.class.getName()).log(Level.SEVERE, null, ex);
             }
-            if (!receivedString.startsWith(userName)) {
-                System.out.println("Received: " + receivedString);
-            }
+            //if (!receivedString.startsWith(userName + "@")) {
+            Interface.jTextArea1.setText(Interface.jTextArea1.getText() + "\n" + receivedString);
+            user.setHistorico(receivedString);
+            //System.out.println(user.getHistorico());
+            //}
         }
     }
 }
