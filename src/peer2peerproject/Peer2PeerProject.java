@@ -11,24 +11,30 @@ public class Peer2PeerProject {
         Scanner sc = new Scanner(System.in);
         ConnectionSend cs;
         ConnectionReceive cr;
+        SendUdp sendudp;
+        ReceiveUdp receiveudp;
         Interface tela;
         String ip = "224.224.224.224", userName = null;
-        int port = 6789;
+        int portMult = 6789, portUdp = 6788;
         UserData user;
         Criptografar cript = new Criptografar();
 
         InetAddress group = InetAddress.getByName(ip);
-        MulticastSocket ms = new MulticastSocket(port);
+        MulticastSocket ms = new MulticastSocket(portMult);
         ms.joinGroup(group);
         System.out.print("Digite o nome de usuario: ");
         userName = sc.nextLine();
         user = new UserData(userName, group, cript.getPublicKey());
 
-        cs = new ConnectionSend(ms, group, port, cript, user);
-        tela = new Interface(cs);
+        cs = new ConnectionSend(ms, group, portMult, cript, user);        
         cs.start();
         cr = new ConnectionReceive(ms, userName, user, cript);
         cr.start();
+        sendudp = new SendUdp();
+        sendudp.start();
+        receiveudp = new ReceiveUdp();
+        receiveudp.start();
+        tela = new Interface(cs);
         tela.setVisible(true);
         cs.sendFirstMessage();
 
