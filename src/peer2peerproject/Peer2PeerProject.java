@@ -35,6 +35,7 @@ public class Peer2PeerProject {
         receiveudp = new ReceiveUdp();
         receiveudp.start();
         tela = new Interface(cs);
+        tela.setVisible(true);
         cs.sendFirstMessage();
 
     }
