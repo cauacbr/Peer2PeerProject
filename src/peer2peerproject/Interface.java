@@ -12,14 +12,16 @@ package peer2peerproject;
 public class Interface extends javax.swing.JFrame {
 
     ConnectionSend cs;
+
+    public Interface(ConnectionSend cs) {
+        this.cs = cs;
+        initComponents();
+    }
+
     public Interface() {
         initComponents();
     }
-    
-        public Interface(ConnectionSend cs) {
-            this.cs = cs;
-        initComponents();
-    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
