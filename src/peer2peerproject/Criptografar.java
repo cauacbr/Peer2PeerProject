@@ -17,7 +17,7 @@ import javax.crypto.NoSuchPaddingException;
  */
 public class Criptografar {
 
-    private static String ALGORITHM = "RSA";
+    private static final String ALGORITHM = "RSA";
     private static PrivateKey privateKey = null;
     private static PublicKey publicKey = null;
 

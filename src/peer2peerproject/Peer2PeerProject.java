@@ -24,12 +24,13 @@ public class Peer2PeerProject {
         userName = sc.nextLine();
         user = new UserData(userName, group, cript.getPublicKey());
 
-        cs = new ConnectionSend(ms, userName, group, port, cript, user);
+        cs = new ConnectionSend(ms, group, port, cript, user);
+        tela = new Interface(cs);
         cs.start();
         cr = new ConnectionReceive(ms, userName, user, cript);
         cr.start();
-        tela = new Interface(cs);
         tela.setVisible(true);
+        cs.sendFirstMessage();
 
     }
 }
