@@ -6,7 +6,7 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ConnectionSend extends Thread {
+public class ConnectionSend {
 
     private MulticastSocket ms = null;
     private final Scanner sc = new Scanner(System.in);
@@ -44,7 +44,4 @@ public class ConnectionSend extends Thread {
         }
     }
 
-    @Override
-    public void run() {
-    }
 }

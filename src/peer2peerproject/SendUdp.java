@@ -15,7 +15,7 @@ import java.net.SocketException;
  *
  * @author Cauã
  */
-public class SendUdp extends Thread {
+public class SendUdp {
 
     DatagramSocket aSocket = null;
 
@@ -43,10 +43,4 @@ public class SendUdp extends Thread {
         }
 
     }
-
-    @Override
-    public void run() {
-
-    }
-
 }

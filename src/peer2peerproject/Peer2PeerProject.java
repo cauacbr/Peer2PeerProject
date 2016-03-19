@@ -27,11 +27,9 @@ public class Peer2PeerProject {
         user = new UserData(userName, group, cript.getPublicKey());
 
         cs = new ConnectionSend(ms, group, portMult, cript, user);
-        cs.start();
         cr = new ConnectionReceive(ms, userName, user, cript);
         cr.start();
         sendudp = new SendUdp();
-        sendudp.start();
         receiveudp = new ReceiveUdp();
         receiveudp.start();
         tela = new Interface(cs);
