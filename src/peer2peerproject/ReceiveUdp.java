@@ -15,6 +15,12 @@ import java.net.SocketException;
  * @author Cauã
  */
 public class ReceiveUdp extends Thread {
+    private int port;
+
+    public ReceiveUdp(int port) {
+        this.port = port;
+    }
+    
 
     @Override
     public void run() {

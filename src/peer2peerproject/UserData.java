@@ -8,7 +8,7 @@ public class UserData {
 
     private String userName;
     private final InetAddress address;
-    private int bitcoin;
+    private int bitcoin = 100;
     private PublicKey publicKey = null;
     private String historico = "";
     private ArrayList<UserData> userData;

@@ -34,8 +34,22 @@ public class ConnectionSend {
         }
     }
 
-    public void sendFirstMessage() {
-        String sendString = "@first@" + user.getUserName() + "@public@" + user.getPublicKey().toString() + "@";
+    public void sendFirstMessage() throws UnknownHostException{
+        String sendString = "@first@" + user.getUserName() 
+                + "@coin@" +  user.getBitcoin() + "@adress@" +  user.getAddress().getLocalHost().getHostAddress()
+                + "@public@" + user.getPublicKey().toString() + "@";
+        messageOut = new DatagramPacket(sendString.getBytes(), sendString.getBytes().length, group, port);
+        try {
+            ms.send(messageOut);
+        } catch (IOException ex) {
+            Logger.getLogger(ConnectionSend.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void sendUserInfo() {
+        String sendString = "@first@" + user.getUserName() 
+                + "@coin@" +  user.getBitcoin() + "@adress@" +  user.getAddress() 
+                +"@hist" + user.getHistorico() + "@public@" + user.getPublicKey().toString() + "@";
         messageOut = new DatagramPacket(sendString.getBytes(), sendString.getBytes().length, group, port);
         try {
             ms.send(messageOut);

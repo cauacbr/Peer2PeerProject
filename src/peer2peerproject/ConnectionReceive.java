@@ -27,6 +27,7 @@ public class ConnectionReceive extends Thread {
             try {
                 ms.receive(messageIn);
                 receivedString = new String(messageIn.getData());
+                user.setHistorico(receivedString);
             } catch (IOException ex) {
                 Logger.getLogger(ConnectionReceive.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -18,13 +18,18 @@ import java.net.SocketException;
 public class SendUdp {
 
     DatagramSocket aSocket = null;
+    int serverPort;
+
+    public SendUdp(int serverPort) {
+        this.serverPort = serverPort;
+    }
 
     public void sendMessage(String sendString, InetAddress host) {
         try {
             aSocket = new DatagramSocket();
             byte[] m = sendString.getBytes();
             InetAddress aHost = InetAddress.getByName(host.getHostName());
-            int serverPort = 6789;
+
             DatagramPacket request
                     = new DatagramPacket(m, sendString.length(), aHost, serverPort);
             aSocket.send(request);

@@ -25,13 +25,13 @@ public class Peer2PeerProject {
         System.out.print("Digite o nome de usuario: ");
         userName = sc.nextLine();
         user = new UserData(userName, group, cript.getPublicKey());
-
+        
+        sendudp = new SendUdp(portUdp);
+        receiveudp = new ReceiveUdp(portUdp);
+        receiveudp.start();
         cs = new ConnectionSend(ms, group, portMult, cript, user);
         cr = new ConnectionReceive(ms, userName, user, cript);
         cr.start();
-        sendudp = new SendUdp();
-        receiveudp = new ReceiveUdp();
-        receiveudp.start();
         tela = new Interface(cs);
         tela.setVisible(true);
         cs.sendFirstMessage();
