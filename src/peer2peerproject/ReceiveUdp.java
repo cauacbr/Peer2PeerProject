@@ -16,6 +16,7 @@ import java.net.SocketException;
  */
 public class ReceiveUdp extends Thread {
     private int port;
+    DatagramSocket aSocket = null;
 
     public ReceiveUdp(int port) {
         this.port = port;
@@ -24,7 +25,6 @@ public class ReceiveUdp extends Thread {
 
     @Override
     public void run() {
-        DatagramSocket aSocket = null;
         try {
             aSocket = new DatagramSocket(6789);
             // create socket at agreed port
@@ -33,10 +33,6 @@ public class ReceiveUdp extends Thread {
             while (true) {
                 request = new DatagramPacket(buffer, buffer.length);
                 aSocket.receive(request);
-                
-                DatagramPacket reply = new DatagramPacket(request.getData(), request.getLength(),
-                        request.getAddress(), request.getPort());
-                aSocket.send(reply);
             }
         } catch (SocketException e) {
             System.out.println("Socket: " + e.getMessage());

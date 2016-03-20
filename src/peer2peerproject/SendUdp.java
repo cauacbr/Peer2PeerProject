@@ -30,13 +30,9 @@ public class SendUdp {
             byte[] m = sendString.getBytes();
             InetAddress aHost = InetAddress.getByName(host.getHostName());
 
-            DatagramPacket request
-                    = new DatagramPacket(m, sendString.length(), aHost, serverPort);
+            DatagramPacket request =
+                     new DatagramPacket(m, sendString.length(), aHost, serverPort);
             aSocket.send(request);
-            byte[] buffer = new byte[1000];
-            DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
-            aSocket.receive(reply);
-            System.out.println("Reply: " + new String(reply.getData()));
         } catch (SocketException e) {
             System.out.println("Socket: " + e.getMessage());
         } catch (IOException e) {
