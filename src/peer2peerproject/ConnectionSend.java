@@ -15,13 +15,15 @@ public class ConnectionSend {
     private final int port;
     Criptografar cript;
     UserData user;
+    int udpport;
 
-    public ConnectionSend(MulticastSocket ms, InetAddress group, int port, Criptografar cript, UserData user) throws UnknownHostException {
+    public ConnectionSend(MulticastSocket ms, InetAddress group, int port, Criptografar cript, UserData user, int udpport) throws UnknownHostException {
         this.ms = ms;
         this.group = group;
         this.port = port;
         this.cript = cript;
         this.user = user;
+        this.udpport = udpport;
     }
 
     public void sendMessage(String sendString) {
@@ -34,10 +36,10 @@ public class ConnectionSend {
         }
     }
 
-    public void sendFirstMessage() throws UnknownHostException{
-        String sendString = "@first@" + user.getUserName() + "@port@"
-                + "@coin@" +  user.getBitcoin() + "@adress@" +  user.getAddress().getLocalHost().getHostAddress()
-                + "@public@" + user.getPublicKey().toString() + "@";
+    public void sendFirstMessage() throws UnknownHostException {
+        String sendString = "@first@" + "@adress@" + InetAddress.getLocalHost() +
+                user.getUserName() + "@portudp@" + udpport + "@coin@" + user.getBitcoin()
+                + "@publickey@" + user.getPublicKey().toString() + "@";
         messageOut = new DatagramPacket(sendString.getBytes(), sendString.getBytes().length, group, port);
         try {
             ms.send(messageOut);
@@ -45,11 +47,11 @@ public class ConnectionSend {
             Logger.getLogger(ConnectionSend.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void sendUserInfo() throws UnknownHostException {
         String sendString = "@info@" + user.getUserName() + "@port@"
-                + "@coin@" +  user.getBitcoin() + "@adress@" +  user.getAddress().getLocalHost().getHostAddress()
-                +"@hist" + user.getHistorico() + "@public@" + user.getPublicKey().toString() + "@";
+                + "@coin@" + user.getBitcoin() + "@adress@" + user.getAddress().getLocalHost().getHostAddress()
+                + "@hist" + user.getHistorico() + "@public@" + user.getPublicKey().toString() + "@";
         messageOut = new DatagramPacket(sendString.getBytes(), sendString.getBytes().length, group, port);
         try {
             ms.send(messageOut);

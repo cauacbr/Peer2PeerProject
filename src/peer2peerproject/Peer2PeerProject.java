@@ -30,7 +30,7 @@ public class Peer2PeerProject {
         SendUdp sendUdp = new SendUdp(udpSocketSend);
         receiveUdp.start();
 
-        cs = new ConnectionSend(ms, group, portMult, cript, user);
+        cs = new ConnectionSend(ms, group, portMult, cript, user, udpSocketReceive.getLocalPort());
         cr = new ConnectionReceive(ms, userName, user, cript);
         cr.start();
         tela = new Interface(cs);
