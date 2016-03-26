@@ -49,9 +49,9 @@ public class ConnectionSend {
     }
 
     public void sendUserInfo() throws UnknownHostException {
-        String sendString = "@info@" + user.getUserName() + "@port@"
-                + "@coin@" + user.getBitcoin() + "@adress@" + user.getAddress().getLocalHost().getHostAddress()
-                + "@hist" + user.getHistorico() + "@public@" + user.getPublicKey().toString() + "@";
+        String sendString = "@first@" + "@adress@" + InetAddress.getLocalHost() +
+                user.getUserName() + "@portudp@" + udpport + "@coin@" + user.getBitcoin()
+                + "@hist@" + user.getHistorico() + "@publickey@" + user.getPublicKey().toString() + "@";
         messageOut = new DatagramPacket(sendString.getBytes(), sendString.getBytes().length, group, port);
         try {
             ms.send(messageOut);
