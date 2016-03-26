@@ -26,9 +26,12 @@ public class Peer2PeerProject {
         userName = sc.nextLine();
         user = new UserData(userName, group, cript.getPublicKey());
         
-        sendudp = new SendUdp(portUdp);
-        receiveudp = new ReceiveUdp(portUdp);
-        receiveudp.start();
+        DatagramSocket udpSocketReceive = new DatagramSocket();
+        ReceiveUdp receiveUdp = new ReceiveUdp(udpSocketReceive);
+        DatagramSocket udpSocketSend = new DatagramSocket();
+        SendUdp sendUdp = new SendUdp(udpSocketSend);
+        receiveUdp.start();
+        
         cs = new ConnectionSend(ms, group, portMult, cript, user);
         cr = new ConnectionReceive(ms, userName, user, cript);
         cr.start();

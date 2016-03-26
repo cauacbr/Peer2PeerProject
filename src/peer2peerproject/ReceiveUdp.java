@@ -8,39 +8,34 @@ package peer2peerproject;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.SocketException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Cauã
  */
 public class ReceiveUdp extends Thread {
-    private int port;
-    DatagramSocket aSocket = null;
 
-    public ReceiveUdp(int port) {
-        this.port = port;
+    DatagramSocket udpSocketReceive;
+
+    public ReceiveUdp(DatagramSocket udpSocketReceive) {
+        this.udpSocketReceive = udpSocketReceive;
     }
-    
 
     @Override
     public void run() {
-        try {
-            aSocket = new DatagramSocket(6789);
-            // create socket at agreed port
+        // create socket at agreed port        
+        DatagramPacket request;
+        while (true) {
             byte[] buffer = new byte[1000];
-            DatagramPacket request;
-            while (true) {
-                request = new DatagramPacket(buffer, buffer.length);
-                aSocket.receive(request);
-            }
-        } catch (SocketException e) {
-            System.out.println("Socket: " + e.getMessage());
-        } catch (IOException e) {
-            System.out.println("IO: " + e.getMessage());
-        } finally {
-            if (aSocket != null) {
-                aSocket.close();
+            request = new DatagramPacket(buffer, buffer.length);
+            try {
+                udpSocketReceive.receive(request);
+                String receivedString = new String(request.getData());
+                System.out.println(receivedString);
+            } catch (IOException ex) {
+                Logger.getLogger(ReceiveUdp.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

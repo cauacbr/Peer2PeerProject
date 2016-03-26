@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.SocketException;
+import java.net.UnknownHostException;
 
 /**
  *
@@ -17,31 +17,20 @@ import java.net.SocketException;
  */
 public class SendUdp {
 
-    DatagramSocket aSocket = null;
-    int serverPort;
+    DatagramSocket udpSocketSend;
 
-    public SendUdp(int serverPort) {
-        this.serverPort = serverPort;
+    public SendUdp(DatagramSocket udpSocketSend) {
+        this.udpSocketSend = udpSocketSend;
     }
 
-    public void sendMessage(String sendString, InetAddress host) {
-        try {
-            aSocket = new DatagramSocket();
-            byte[] m = sendString.getBytes();
-            InetAddress aHost = InetAddress.getByName(host.getHostName());
+    public void sendMessage(String sendString, InetAddress host, int serverPort) throws UnknownHostException, IOException {
 
-            DatagramPacket request =
-                     new DatagramPacket(m, sendString.length(), aHost, serverPort);
-            aSocket.send(request);
-        } catch (SocketException e) {
-            System.out.println("Socket: " + e.getMessage());
-        } catch (IOException e) {
-            System.out.println("IO: " + e.getMessage());
-        } finally {
-            if (aSocket != null) {
-                aSocket.close();
-            }
-        }
+        byte[] m = sendString.getBytes();
+        InetAddress aHost = InetAddress.getByName(host.getHostName());
+
+        DatagramPacket request
+                = new DatagramPacket(m, sendString.length(), aHost, serverPort);
+        udpSocketSend.send(request);
 
     }
 }
