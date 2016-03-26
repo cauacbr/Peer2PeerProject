@@ -11,11 +11,9 @@ public class Peer2PeerProject {
         Scanner sc = new Scanner(System.in);
         ConnectionSend cs;
         ConnectionReceive cr;
-        SendUdp sendudp;
-        ReceiveUdp receiveudp;
         Interface tela;
         String ip = "224.224.224.224", userName = null;
-        int portMult = 6789, portUdp = 6788;
+        int portMult = 6789;
         UserData user;
         Criptografar cript = new Criptografar();
 
@@ -25,13 +23,13 @@ public class Peer2PeerProject {
         System.out.print("Digite o nome de usuario: ");
         userName = sc.nextLine();
         user = new UserData(userName, group, cript.getPublicKey());
-        
+
         DatagramSocket udpSocketReceive = new DatagramSocket();
         ReceiveUdp receiveUdp = new ReceiveUdp(udpSocketReceive);
         DatagramSocket udpSocketSend = new DatagramSocket();
         SendUdp sendUdp = new SendUdp(udpSocketSend);
         receiveUdp.start();
-        
+
         cs = new ConnectionSend(ms, group, portMult, cript, user);
         cr = new ConnectionReceive(ms, userName, user, cript);
         cr.start();
