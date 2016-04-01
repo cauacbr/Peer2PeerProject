@@ -28,7 +28,11 @@ public class ConnectionReceive extends Thread {
                 ms.receive(messageIn);
                 receivedString = new String(messageIn.getData());
                 user.setHistorico(receivedString);
-                if(receivedString.startsWith("@first@")){
+                if(receivedString.startsWith("1")){
+                    UserData recvUser;
+                    for(int i = 0; i < receivedString.length(); i++){
+                        
+                    }
                     System.out.println("Entrou");
                 }
                 

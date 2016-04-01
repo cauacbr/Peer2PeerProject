@@ -37,9 +37,10 @@ public class ConnectionSend {
     }
 
     public void sendFirstMessage() throws UnknownHostException {
-        String sendString = "@first@" + "@adress@" + InetAddress.getLocalHost() +
-                user.getUserName() + "@portudp@" + udpport + "@coin@" + user.getBitcoin()
-                + "@publickey@" + user.getPublicKey().toString() + "@";
+        String sendString = "1" + "@" + user.getUserName() + "@" 
+                + InetAddress.getLocalHost().getHostAddress() + "@"
+                + udpport + "@" + user.getBitcoin() + "@"
+                + user.getPublicKey().toString();
         messageOut = new DatagramPacket(sendString.getBytes(), sendString.getBytes().length, group, port);
         try {
             ms.send(messageOut);
@@ -49,8 +50,8 @@ public class ConnectionSend {
     }
 
     public void sendUserInfo() throws UnknownHostException {
-        String sendString = "@first@" + "@adress@" + InetAddress.getLocalHost() +
-                user.getUserName() + "@portudp@" + udpport + "@coin@" + user.getBitcoin()
+        String sendString = "@first@" + "@adress@" + InetAddress.getLocalHost()
+                + user.getUserName() + "@portudp@" + udpport + "@coin@" + user.getBitcoin()
                 + "@hist@" + user.getHistorico() + "@publickey@" + user.getPublicKey().toString() + "@";
         messageOut = new DatagramPacket(sendString.getBytes(), sendString.getBytes().length, group, port);
         try {
