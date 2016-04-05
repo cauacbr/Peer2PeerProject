@@ -26,7 +26,7 @@ public class ConnectionSend {
         }
     }
 
-    public void sendFirstMessage() throws UnknownHostException {
+    public void sendFirstMessage() throws UnknownHostException, IOException {
         String sendString = "1" + "@"
                 + Peer2PeerProject.user.getUserName() + "@"
                 + InetAddress.getLocalHost().getHostAddress() + "@"
@@ -34,11 +34,7 @@ public class ConnectionSend {
                 + Peer2PeerProject.user.getBitcoin() + "@"
                 + Criptografar.getPublicKey();
         messageOut = new DatagramPacket(sendString.getBytes(), sendString.getBytes().length, group, port);
-        try {
-            Peer2PeerProject.ms.send(messageOut);
-        } catch (IOException ex) {
-            Logger.getLogger(ConnectionSend.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Peer2PeerProject.ms.send(messageOut);
     }
 
     /*public void sendUserInfo() throws UnknownHostException {

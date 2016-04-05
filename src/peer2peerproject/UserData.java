@@ -96,7 +96,7 @@ public class UserData {
         System.out.println(this.userData.size());
         for (int i = 0; i < this.userData.size(); i++) {
             names.add(this.userData.get(i).getUserName());
-            System.out.println(names.get(i));
+            //System.out.println(names.get(i));
         }
 
         String[] names1 = new String[names.size()];
