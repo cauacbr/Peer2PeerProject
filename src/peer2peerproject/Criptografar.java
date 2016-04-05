@@ -33,18 +33,18 @@ public class Criptografar {
         publicKey = key.getPublic();
     }
 
-    public PrivateKey getPrivateKey() {
+    public static PrivateKey getPrivateKey() {
         return privateKey;
     }
 
-    public PublicKey getPublicKey() {
+    public static PublicKey getPublicKey() {
         return publicKey;
     }
 
     /**
      * Criptografa o texto puro usando chave publica.
      */
-    public byte[] criptografaPublica(String texto, PublicKey chave) {
+    public static byte[] criptografaPublica(String texto, PublicKey chave) {
         byte[] cipherText = null;
 
         try {
@@ -61,7 +61,7 @@ public class Criptografar {
     /**
      * Criptografa o texto puro usando chave privada.
      */
-    public byte[] criptografaPrivada(String texto, PrivateKey chave) {
+    public static byte[] criptografaPrivada(String texto, PrivateKey chave) {
         byte[] cipherText = null;
 
         try {
@@ -78,7 +78,7 @@ public class Criptografar {
     /**
      * Decriptografa o texto puro usando chave privada.
      */
-    public String decriptografaPrivada(byte[] texto, PrivateKey chave) {
+    public static String decriptografaPrivada(byte[] texto, PrivateKey chave) {
         byte[] dectyptedText = null;
 
         try {
@@ -96,7 +96,7 @@ public class Criptografar {
     /**
      * Decriptografa o texto puro usando chave publica.
      */
-    public String decriptografaPublica(byte[] texto, PublicKey chave) {
+    public static String decriptografaPublica(byte[] texto, PublicKey chave) {
         byte[] dectyptedText = null;
 
         try {
@@ -104,6 +104,7 @@ public class Criptografar {
             // Decriptografa o texto puro usando a chave Privada
             cipher.init(Cipher.DECRYPT_MODE, chave);
             dectyptedText = cipher.doFinal(texto);
+            
 
         } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException ex) {
         }

@@ -7,17 +7,15 @@ import java.util.ArrayList;
 public class UserData {
 
     private String userName;
-    private final InetAddress address;
     private int bitcoin = 100;
     private PublicKey publicKey = null;
     private String historico = "";
     private ArrayList<UserData> userData;
 
-    public UserData(String userName, InetAddress address, PublicKey publicKey) {
+    public UserData(String userName) {
         this.userData = new ArrayList<>();
         this.userName = userName;
-        this.address = address;
-        this.publicKey = publicKey;
+        this.publicKey = Criptografar.getPublicKey();
     }
 
     public String getUserName() {
@@ -26,10 +24,6 @@ public class UserData {
 
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    public InetAddress getAddress() {
-        return address;
     }
 
     public PublicKey getPublicKey() {
