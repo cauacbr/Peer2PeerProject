@@ -93,7 +93,7 @@ public class UserData {
     public String[] getUserNamesList() {
         List<String> names = new ArrayList<>();
 
-        System.out.println(this.userData.size());
+        //System.out.println(this.userData.size());
         for (int i = 0; i < this.userData.size(); i++) {
             names.add(this.userData.get(i).getUserName());
             //System.out.println(names.get(i));

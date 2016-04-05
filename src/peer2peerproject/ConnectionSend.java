@@ -32,7 +32,7 @@ public class ConnectionSend {
                 + InetAddress.getLocalHost().getHostAddress() + "@"
                 + Peer2PeerProject.udpSocket.getLocalPort() + "@"
                 + Peer2PeerProject.user.getBitcoin() + "@"
-                + Criptografar.getPublicKey();
+                + com.sun.org.apache.xerces.internal.impl.dv.util.Base64.encode(Criptografar.getPublicKey().getEncoded());
         messageOut = new DatagramPacket(sendString.getBytes(), sendString.getBytes().length, group, port);
         Peer2PeerProject.ms.send(messageOut);
     }
