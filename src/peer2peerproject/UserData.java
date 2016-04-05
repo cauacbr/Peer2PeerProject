@@ -88,5 +88,20 @@ public class UserData {
     public void setAddress(String address) {
         this.address = address;
     }
+    
+    public String[] getUserNamesList(){
+        String [] names = null;
+        System.out.println(Peer2PeerProject.user.userData.size());
+        for (int i = 0; i < Peer2PeerProject.user.userData.size(); i++) {
+			names [i] = Peer2PeerProject.user.userData.get(i).getUserName();
+		} 
+        if(names == null){
+            names[0] = "";
+            return names;
+        }
+        else{
+        return names;
+        }
+    }
 
 }

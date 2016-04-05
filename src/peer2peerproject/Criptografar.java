@@ -119,9 +119,12 @@ public class Criptografar {
 
     //CONVERTER STRINGS PARA KEY E VICE VERSA
     public static PublicKey stringToPublicKey(String pubkey) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        System.out.println("1");
         KeyFactory keyFactory = KeyFactory.getInstance(ALGORITHM);
-        System.out.println("2");
+        /*System.out.println(pubkey);
+        System.out.println(pubkey.getBytes());
+        System.out.println(Base64.decode(pubkey));
+        System.out.println(Base64.encode(pubkey.getBytes()));*/
+
         EncodedKeySpec publicKeySpec = new X509EncodedKeySpec(Base64.decode(pubkey));
         PublicKey publicKey2 = keyFactory.generatePublic(publicKeySpec);
         return publicKey2;

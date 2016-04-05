@@ -3,6 +3,8 @@ package peer2peerproject;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import java.io.IOException;
 import java.net.*;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,10 +35,7 @@ public class ConnectionSend {
                 + InetAddress.getLocalHost().getHostAddress() + "@"
                 + Peer2PeerProject.udpSocket.getLocalPort() + "@" 
                 + Peer2PeerProject.user.getBitcoin() + "@"
-                + Base64.encode(Peer2PeerProject.cript.getPublicKey().getEncoded());
-        
-        
-        
+                + Criptografar.getPublicKey();
         messageOut = new DatagramPacket(sendString.getBytes(), sendString.getBytes().length, group, port);
         try {
             Peer2PeerProject.ms.send(messageOut);
