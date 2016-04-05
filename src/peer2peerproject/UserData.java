@@ -11,7 +11,7 @@ public class UserData {
     private String historico = "";
     int portudp;
     String address;
-    private ArrayList<UserData> userData = null;
+    public ArrayList<UserData> userData = null;
 
     public UserData() {
 
@@ -91,9 +91,10 @@ public class UserData {
     
     public String[] getUserNamesList(){
         String [] names = null;
-        System.out.println(Peer2PeerProject.user.userData.size());
-        for (int i = 0; i < Peer2PeerProject.user.userData.size(); i++) {
-			names [i] = Peer2PeerProject.user.userData.get(i).getUserName();
+        System.out.println(this.userData.size());
+        for (int i = 0; i < this.userData.size(); i++) {
+			names [i] = this.userData.get(i).getUserName();
+                        System.out.println(names[i]);
 		} 
         if(names == null){
             names[0] = "";

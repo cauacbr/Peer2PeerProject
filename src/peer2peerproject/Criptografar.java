@@ -117,7 +117,7 @@ public class Criptografar {
         return new String(dectyptedText);
     }
 
-    //CONVERTER STRINGS PARA KEY E VICE VERSA
+    //CONVERTER STRINGS PARA KEY
     public static PublicKey stringToPublicKey(String pubkey) throws NoSuchAlgorithmException, InvalidKeySpecException {
         KeyFactory keyFactory = KeyFactory.getInstance(ALGORITHM);
         /*System.out.println(pubkey);
