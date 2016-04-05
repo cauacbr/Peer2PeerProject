@@ -15,14 +15,13 @@ public class Peer2PeerProject {
         public static SendUdp sendUdp;
         public static DatagramSocket udpSocket;
         public static UserData user;
-        public static InetAddress group;
 
-    public static void main(String[] args) throws UnknownHostException, IOException, NoSuchAlgorithmException {
+    public static void main(String[] args) throws NoSuchAlgorithmException, UnknownHostException, IOException {
         Scanner sc = new Scanner(System.in);
         String ip = "224.224.224.224", userName;
         int portMult = 6789;
         cript = new Criptografar();
-        group = InetAddress.getByName(ip);
+        InetAddress group = InetAddress.getByName(ip);
         ms = new MulticastSocket(portMult);
         ms.joinGroup(group);
         System.out.print("Digite o nome de usuario: ");
