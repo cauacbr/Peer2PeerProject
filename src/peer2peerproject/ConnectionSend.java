@@ -1,5 +1,6 @@
 package peer2peerproject;
 
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import java.io.IOException;
 import java.net.*;
 import java.util.logging.Level;
@@ -27,10 +28,15 @@ public class ConnectionSend {
     }
 
     public void sendFirstMessage() throws UnknownHostException {
-        String sendString = "1" + "@" + Peer2PeerProject.user.getUserName() + "@"
+        String sendString = "1" + "@" 
+                + Peer2PeerProject.user.getUserName() + "@"
                 + InetAddress.getLocalHost().getHostAddress() + "@"
-                + Peer2PeerProject.udpSocket.getLocalPort() + "@" + Peer2PeerProject.user.getBitcoin() + "@"
-                + Peer2PeerProject.user.getPublicKey().toString();
+                + Peer2PeerProject.udpSocket.getLocalPort() + "@" 
+                + Peer2PeerProject.user.getBitcoin() + "@"
+                + Base64.encode(Peer2PeerProject.cript.getPublicKey().getEncoded());
+        
+        
+        
         messageOut = new DatagramPacket(sendString.getBytes(), sendString.getBytes().length, group, port);
         try {
             Peer2PeerProject.ms.send(messageOut);
@@ -39,7 +45,7 @@ public class ConnectionSend {
         }
     }
 
-    public void sendUserInfo() throws UnknownHostException {
+    /*public void sendUserInfo() throws UnknownHostException {
         String sendString = "@first@" + "@adress@" + InetAddress.getLocalHost()
                 + Peer2PeerProject.user.getUserName() + "@portudp@" + Peer2PeerProject.udpSocket.getLocalPort() + "@coin@" + Peer2PeerProject.user.getBitcoin()
                 + "@hist@" + Peer2PeerProject.user.getHistorico() + "@publickey@" + Peer2PeerProject.user.getPublicKey().toString() + "@";
@@ -49,6 +55,7 @@ public class ConnectionSend {
         } catch (IOException ex) {
             Logger.getLogger(ConnectionSend.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+
+    }*/
 
 }

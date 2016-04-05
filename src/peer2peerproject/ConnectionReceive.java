@@ -9,7 +9,6 @@ public class ConnectionReceive extends Thread {
 
     private String receivedString;
 
-
     @Override
     public void run() {
         while (true) {
@@ -19,14 +18,21 @@ public class ConnectionReceive extends Thread {
                 Peer2PeerProject.ms.receive(messageIn);
                 receivedString = new String(messageIn.getData());
                 Peer2PeerProject.user.setHistorico(receivedString);
-                if(receivedString.startsWith("1")){
-                    UserData recvUser;
-                    for(int i = 0; i < receivedString.length(); i++){
-                        
+                String[] saida = receivedString.split("@");
+                if (receivedString.startsWith("1")) {
+                    if ("1".equals(saida[0])) {
+                        Peer2PeerProject.user.addUserToList(saida[1],
+                                saida[2],
+                                Integer.parseInt(saida[3]),
+                                Integer.parseInt(saida[4]),
+                                //Criptografar.stringToPublicKey(saida[5]));
+                                Criptografar.getPublicKey());
+
                     }
-                    System.out.println("Entrou");
+                    System.out.println(saida[1] + " entrou");
+                    Peer2PeerProject.tela.jList1.setListData(saida);
                 }
-                
+
             } catch (IOException ex) {
                 Logger.getLogger(ConnectionReceive.class.getName()).log(Level.SEVERE, null, ex);
             }

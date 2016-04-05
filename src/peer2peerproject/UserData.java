@@ -9,12 +9,28 @@ public class UserData {
     private int bitcoin = 100;
     private PublicKey publicKey = null;
     private String historico = "";
-    private ArrayList<UserData> userData;
+    int portudp;
+    String address;
+    private ArrayList<UserData> userData = null;
+
+    public UserData() {
+
+    }
 
     public UserData(String userName) {
         this.userData = new ArrayList<>();
         this.userName = userName;
         this.publicKey = Criptografar.getPublicKey();
+    }
+
+    public void addUserToList(String userName, String address, int portudp, int bitcoin, PublicKey publicKey) {
+        UserData newUser = new UserData(userName);
+        newUser.setBitcoin(bitcoin);
+        newUser.setPublicKey(publicKey);
+        newUser.setAddress(address);
+        newUser.setPortudp(portudp);
+        this.userData.add(newUser);
+        //Peer2PeerProject.tela.jList1.setListData(newUser.getUserName());
     }
 
     public String getUserName() {
@@ -56,4 +72,21 @@ public class UserData {
     public void setBitcoin(int bitcoin) {
         this.bitcoin = bitcoin;
     }
+
+    public int getPortudp() {
+        return portudp;
+    }
+
+    public void setPortudp(int portudp) {
+        this.portudp = portudp;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
 }
