@@ -1,10 +1,7 @@
 package peer2peerproject;
 
-import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import java.io.IOException;
 import java.net.*;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,10 +27,10 @@ public class ConnectionSend {
     }
 
     public void sendFirstMessage() throws UnknownHostException {
-        String sendString = "1" + "@" 
+        String sendString = "1" + "@"
                 + Peer2PeerProject.user.getUserName() + "@"
                 + InetAddress.getLocalHost().getHostAddress() + "@"
-                + Peer2PeerProject.udpSocket.getLocalPort() + "@" 
+                + Peer2PeerProject.udpSocket.getLocalPort() + "@"
                 + Peer2PeerProject.user.getBitcoin() + "@"
                 + Criptografar.getPublicKey();
         messageOut = new DatagramPacket(sendString.getBytes(), sendString.getBytes().length, group, port);
@@ -56,5 +53,4 @@ public class ConnectionSend {
         }
 
     }*/
-
 }

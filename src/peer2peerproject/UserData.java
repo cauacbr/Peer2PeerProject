@@ -2,6 +2,7 @@ package peer2peerproject;
 
 import java.security.PublicKey;
 import java.util.ArrayList;
+import java.util.List;
 
 public class UserData {
 
@@ -88,20 +89,26 @@ public class UserData {
     public void setAddress(String address) {
         this.address = address;
     }
-    
-    public String[] getUserNamesList(){
-        String [] names = null;
+
+    public String[] getUserNamesList() {
+        List<String> names = new ArrayList<>();
+
         System.out.println(this.userData.size());
         for (int i = 0; i < this.userData.size(); i++) {
-			names [i] = this.userData.get(i).getUserName();
-                        System.out.println(names[i]);
-		} 
-        if(names == null){
-            names[0] = "";
-            return names;
+            names.add(this.userData.get(i).getUserName());
+            System.out.println(names.get(i));
         }
-        else{
-        return names;
+
+        String[] names1 = new String[names.size()];
+        for (int i = 0; i < names.size(); i++) {
+            names1[i] = names.get(i);
+        }
+
+        if (names == null) {
+            names1[0] = "";
+            return names1;
+        } else {
+            return names1;
         }
     }
 
