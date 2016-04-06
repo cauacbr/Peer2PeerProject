@@ -40,11 +40,14 @@ public class ConnectionReceive extends Thread {
                                 + Base64.encode(Criptografar.getPublicKey().getEncoded()) + "@"
                                 + Peer2PeerProject.user.getHistorico() + "@";
                         Peer2PeerProject.sendUdp.sendMessage(sendString, messageIn.getAddress(), Integer.valueOf(saida[3]));
-
                         String mensagem = saida[1] + " entrou, possui " + saida[4] + " bitcoins";
                         Interface.jTextArea1.setText(Interface.jTextArea1.getText() + "\n" + mensagem);
                     }
-
+                }
+                if (receivedString.startsWith("2")) {
+                    Peer2PeerProject.user.setHistorico(receivedString);
+                    String mensagem = saida[1] + " comprar " + saida[2] + " de " + saida[3];
+                    Interface.jTextArea1.setText(Interface.jTextArea1.getText() + "\n" + mensagem);
                 }
 
                 //System.out.println(user.getHistorico());
@@ -53,6 +56,8 @@ public class ConnectionReceive extends Thread {
             } catch (NoSuchAlgorithmException ex) {
                 Logger.getLogger(ConnectionReceive.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
+                Logger.getLogger(ConnectionReceive.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InterruptedException ex) {
                 Logger.getLogger(ConnectionReceive.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

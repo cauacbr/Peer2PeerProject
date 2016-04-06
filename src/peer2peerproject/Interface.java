@@ -121,7 +121,7 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Peer2PeerProject.cs.sendMessage(jTextField1.getText());
+        Peer2PeerProject.cs.sendBuyMessage(jTextField1.getText(), jList1.getSelectedValue());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

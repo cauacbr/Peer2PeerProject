@@ -17,8 +17,9 @@ public class ConnectionSend {
         this.port = port;
     }
 
-    public void sendMessage(String sendString) {
-        sendString = Peer2PeerProject.user.getUserName() + "@" + sendString;
+    public void sendBuyMessage(String usuario, String valor) {
+        String sendString = "2@" + Peer2PeerProject.user.getUserName() +
+                "@" + usuario + "@" + valor + "@";
         messageOut = new DatagramPacket(sendString.getBytes(), sendString.getBytes().length, group, port);
         try {
             Peer2PeerProject.ms.send(messageOut);
