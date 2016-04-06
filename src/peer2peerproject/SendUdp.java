@@ -23,14 +23,17 @@ public class SendUdp {
         this.udpSocketSend = udpSocketSend;
     }
 
-    public void sendMessage(String sendString, InetAddress host, int serverPort) throws UnknownHostException, IOException {
+    public void sendMessage(String sendString, InetAddress host, int serverPort) throws UnknownHostException, IOException, InterruptedException {
 
         byte[] m = sendString.getBytes();
         InetAddress aHost = InetAddress.getByName(host.getHostName());
 
         DatagramPacket request
                 = new DatagramPacket(m, sendString.length(), aHost, serverPort);
+        
+        Thread.sleep((long) (Math.random()*300));
         udpSocketSend.send(request);
 
     }
+  
 }

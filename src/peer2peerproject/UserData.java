@@ -89,14 +89,20 @@ public class UserData {
     public void setAddress(String address) {
         this.address = address;
     }
+    
+    public boolean verificaUsuario(String nome){
+        for (int i = 0; i < this.userData.size(); i++) {            
+            if(this.userData.get(i).getUserName().equals(nome)){             
+                return true;
+            }
+        }
+        return false;
+    }
 
     public String[] getUserNamesList() {
         List<String> names = new ArrayList<>();
-
-        //System.out.println(this.userData.size());
         for (int i = 0; i < this.userData.size(); i++) {
             names.add(this.userData.get(i).getUserName());
-            //System.out.println(names.get(i));
         }
 
         String[] names1 = new String[names.size()];

@@ -17,7 +17,6 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
-import sun.misc.BASE64Decoder;
 
 /**
  *
@@ -121,13 +120,11 @@ public class Criptografar {
 
     //CONVERTER STRINGS PARA KEY
     public static PublicKey stringToPublicKey(String pubkey) throws InvalidKeySpecException, NoSuchAlgorithmException, IOException {
-        KeyFactory keyFactory = KeyFactory.getInstance(ALGORITHM);        
+        KeyFactory keyFactory = KeyFactory.getInstance(ALGORITHM);
         EncodedKeySpec publicKeySpec = new X509EncodedKeySpec(Base64.decode(pubkey));
         PublicKey publicKey2 = keyFactory.generatePublic(publicKeySpec);
-        System.out.println(publicKey2);
         return publicKey2;
 
-        
     }
 
     public static PrivateKey stringToPrivateKey(String privkey) throws InvalidKeySpecException, NoSuchAlgorithmException {
