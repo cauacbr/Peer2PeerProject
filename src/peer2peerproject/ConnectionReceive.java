@@ -1,8 +1,10 @@
 package peer2peerproject;
 
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import java.io.IOException;
 import java.net.*;
 import java.security.NoSuchAlgorithmException;
+import java.security.PublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,18 +24,14 @@ public class ConnectionReceive extends Thread {
                 Peer2PeerProject.user.setHistorico(receivedString);
                 String[] saida = receivedString.split("@");
                 if (receivedString.startsWith("1")) {
-                    //if (!saida[1].equals(Peer2PeerProject.user.getUserName())) {
+                    if (!saida[1].equals(Peer2PeerProject.user.getUserName())) {
                         Peer2PeerProject.user.addUserToList(saida[1],
                                 saida[2],
                                 Integer.parseInt(saida[3]),
                                 Integer.parseInt(saida[4]),
                                 Criptografar.stringToPublicKey(saida[5]));
-                                //Criptografar.getPublicKey());
-
-                        //System.out.println(saida[1] + " entrou");
-                        //System.out.println(saida[5]);
                         Peer2PeerProject.tela.jList1.setListData(Peer2PeerProject.user.getUserNamesList());
-                    //}
+                    }
                 }
 
             } catch (IOException ex) {
