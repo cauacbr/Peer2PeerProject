@@ -50,6 +50,7 @@ public class ReceiveUdp extends Thread {
                         /*for (int j = 0; j < 7; j++) {
                             System.out.println(saida[j]);
                         }*/
+
                         Peer2PeerProject.tela.jList1.setListData(Peer2PeerProject.user.getUserNamesList());
                         String mensagem = saida[1] + " entrou, possui " + saida[4] + " bitcoins";
                         Interface.jTextArea1.setText(Interface.jTextArea1.getText() + "\n" + mensagem);

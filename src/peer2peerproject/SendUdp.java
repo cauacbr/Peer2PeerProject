@@ -30,10 +30,10 @@ public class SendUdp {
 
         DatagramPacket request
                 = new DatagramPacket(m, sendString.length(), aHost, serverPort);
-        
-        Thread.sleep((long) (Math.random()*10));
+
+        Thread.sleep((long) (Math.random() * 10));
         udpSocketSend.send(request);
 
     }
-  
+
 }

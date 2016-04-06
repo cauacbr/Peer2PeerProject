@@ -46,7 +46,7 @@ public class ConnectionReceive extends Thread {
                 }
                 if (receivedString.startsWith("2")) {
                     Peer2PeerProject.user.setHistorico(receivedString);
-                    String mensagem = saida[1] + " comprar " + saida[2] + " de " + saida[3];
+                    String mensagem = saida[1] + " compra " + saida[2] + " de " + saida[3] + " pendente";
                     Interface.jTextArea1.setText(Interface.jTextArea1.getText() + "\n" + mensagem);
                 }
 
