@@ -27,9 +27,11 @@ public class Criptografar {
     public static final String ALGORITHM = "RSA";
     public static PrivateKey privateKey = null;
     public static PublicKey publicKey = null;
+    public static Cipher cipher;
 
-    public Criptografar() throws NoSuchAlgorithmException {
+    public Criptografar() throws NoSuchAlgorithmException, NoSuchPaddingException {
         geraChave();
+        cipher = Cipher.getInstance(ALGORITHM);
     }
 
     public static void geraChave() throws NoSuchAlgorithmException {
@@ -37,7 +39,7 @@ public class Criptografar {
         keyGen.initialize(1024);
         KeyPair key = keyGen.generateKeyPair();
         privateKey = key.getPrivate();
-        publicKey = key.getPublic();
+        publicKey = key.getPublic();        
     }
 
     public static PrivateKey getPrivateKey() {
@@ -55,11 +57,10 @@ public class Criptografar {
         byte[] cipherText = null;
 
         try {
-            final Cipher cipher = Cipher.getInstance(ALGORITHM);
             // Criptografa o texto puro usando a chave Publica
             cipher.init(Cipher.ENCRYPT_MODE, chave);
             cipherText = cipher.doFinal(texto.getBytes());
-        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e) {
+        } catch (InvalidKeyException | IllegalBlockSizeException | BadPaddingException e) {
         }
 
         return cipherText;
@@ -72,11 +73,10 @@ public class Criptografar {
         byte[] cipherText = null;
 
         try {
-            final Cipher cipher = Cipher.getInstance(ALGORITHM);
             // Criptografa o texto puro usando a chave Publica
             cipher.init(Cipher.ENCRYPT_MODE, chave);
             cipherText = cipher.doFinal(texto.getBytes());
-        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException e) {
+        } catch (InvalidKeyException | IllegalBlockSizeException | BadPaddingException e) {
         }
 
         return cipherText;
@@ -89,12 +89,11 @@ public class Criptografar {
         byte[] dectyptedText = null;
 
         try {
-            final Cipher cipher = Cipher.getInstance(ALGORITHM);
             // Decriptografa o texto puro usando a chave Privada
             cipher.init(Cipher.DECRYPT_MODE, chave);
             dectyptedText = cipher.doFinal(texto);
 
-        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException ex) {
+        } catch (InvalidKeyException | IllegalBlockSizeException | BadPaddingException ex) {
         }
 
         return new String(dectyptedText);
@@ -103,16 +102,16 @@ public class Criptografar {
     /**
      * Decriptografa o texto puro usando chave publica.
      */
-    public static String decriptografaPublica(byte[] texto, PublicKey chave) {
+    public static String decriptografaPublica(byte[] texto, PublicKey chave) throws IllegalBlockSizeException, BadPaddingException {
         byte[] dectyptedText = null;
 
-        try {
-            final Cipher cipher = Cipher.getInstance(ALGORITHM);
+        try {            
             // Decriptografa o texto puro usando a chave Privada
             cipher.init(Cipher.DECRYPT_MODE, chave);
-            dectyptedText = cipher.doFinal(texto);
+            dectyptedText = cipher.update(texto);
 
-        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException ex) {
+        } catch (InvalidKeyException ex) {
+            System.out.println(ex.getCause());
         }
 
         return new String(dectyptedText);

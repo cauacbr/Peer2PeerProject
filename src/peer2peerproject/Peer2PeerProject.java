@@ -4,6 +4,7 @@ import java.net.*;
 import java.io.*;
 import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
+import javax.crypto.NoSuchPaddingException;
 
 public class Peer2PeerProject {
 
@@ -17,7 +18,7 @@ public class Peer2PeerProject {
     public static DatagramSocket udpSocket;
     public static UserData user;
 
-    public static void main(String[] args) throws NoSuchAlgorithmException, UnknownHostException, IOException {
+    public static void main(String[] args) throws NoSuchAlgorithmException, UnknownHostException, IOException, NoSuchPaddingException {
         Scanner sc = new Scanner(System.in);
         String ip = "224.224.224.224", userName;
         System.out.print("Digite o nome de usuario: ");
