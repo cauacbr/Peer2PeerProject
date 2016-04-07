@@ -11,7 +11,7 @@ public class UserData {
 
     private String userName;
     private int bitcoin = 100;
-    private PublicKey publicKey = null;
+    public PublicKey publicKey = null;
     private String historico = "";
     int portudp;
     String address;
@@ -152,4 +152,17 @@ public class UserData {
         }
         return 0;
     }
+    
+    public PublicKey getUserPublicKey(String nome) {
+        PublicKey p = null;
+        for (int i = 0; i < this.userData.size(); i++) {
+            if (this.userData.get(i).getUserName().equals(nome)) {
+                p = this.userData.get(i).publicKey;
+                return p;
+            }
+        }
+        return p;
+    }
+    
+    
 }

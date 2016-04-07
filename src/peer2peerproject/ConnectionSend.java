@@ -15,6 +15,14 @@ public class ConnectionSend {
         this.port = port;
     }
 
+    public void sendMineradores(String sendString) throws IOException {
+        messageOut = new DatagramPacket(sendString.getBytes(), sendString.getBytes().length, group, port);
+        Peer2PeerProject.ms.send(messageOut);
+        messageOut = null;
+        System.out.println("ConnectionSend\nEnviando mensagem de compra");
+
+    }
+
     public void sendFirstMessage() throws UnknownHostException, IOException {
         String sendString = "1@"
                 + Peer2PeerProject.user.getUserName() + "@"
@@ -36,13 +44,4 @@ public class ConnectionSend {
         messageOut = null;
         System.out.println("ConnectionSend\nEnviando mensagem de logout");
     }
-
-    public void sendMineradores(String vendedor, String comprador) throws UnknownHostException, IOException {
-        String sendString = "2@" + vendedor + "@" + comprador + "@" + Peer2PeerProject.user.getUserAddress(comprador) + "@" + port + "@";
-        messageOut = new DatagramPacket(sendString.getBytes(), sendString.getBytes().length, group, port);
-        Peer2PeerProject.ms.send(messageOut);
-        messageOut = null;
-
-    }
-
 }

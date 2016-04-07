@@ -58,13 +58,15 @@ public class ReceiveUdp extends Thread {
                 }
 
                 if (receivedString.startsWith("2")) {
-                    String mensagem = saida[1] + " compra " + saida[3] + " de " + saida[2] + " pendente";
+                    String mensagem = saida[1] + " compra de " + saida[2] + " " + saida[2] + " pendente";
                     Peer2PeerProject.user.setHistorico(mensagem);
                     Interface.jTextArea1.setText(Interface.jTextArea1.getText() + "\n" + mensagem);
                     System.out.println("ConnectionReceive\n" + mensagem);
-                    
-                    
-                    
+                    mensagem = saida[2] + "@" + saida[3] + "@";
+                    byte [] crip = Criptografar.criptografaPrivada(mensagem, Criptografar.getPrivateKey());
+                    mensagem = "2@" + saida[1] + "@" + Arrays.toString(crip) + "@";               
+                    System.out.println("ConnectionReceive\n" + mensagem);
+                    Peer2PeerProject.cs.sendMineradores(mensagem);
                 }
 
             } catch (IOException ex) {

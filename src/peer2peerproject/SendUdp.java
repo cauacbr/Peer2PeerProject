@@ -37,13 +37,13 @@ public class SendUdp {
         request = null;
     }
 
-    public void sendBuyMessageUdp(String valor, String usuario, InetAddress host, int serverPort) throws UnknownHostException, IOException {
-        String sendString = "2@" + Peer2PeerProject.user.getUserName() + "@" + usuario + "@" + valor + "@";
+    public void sendBuyMessageUdp(String valor, String vendedor, InetAddress host, int serverPort) throws UnknownHostException, IOException {
+        String sendString = "2@" + Peer2PeerProject.user.getUserName() + "@" + vendedor+ "@" + valor + "@";
         byte[] m = sendString.getBytes();
         DatagramPacket request = new DatagramPacket(m, sendString.length(), InetAddress.getByName(host.getHostName()), serverPort);
         System.out.println("SendUdp\nsendBuyMessage\nEnviando via UDP: " + sendString + "\n");
         Interface.jTextArea1.setText(Interface.jTextArea1.getText() + "\n"
-                + Peer2PeerProject.user.getUserName() + " compra " + valor + " de " + usuario + " pendente");
+                + Peer2PeerProject.user.getUserName() + " compra de " + vendedor + " " + valor + " pendente");
         udpSocketSend.send(request);
         System.out.println("SendUdp\nsendBuyMessage\nEnviado ");
 

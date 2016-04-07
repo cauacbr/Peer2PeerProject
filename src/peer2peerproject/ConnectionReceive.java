@@ -3,7 +3,9 @@ package peer2peerproject;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import java.io.IOException;
 import java.net.*;
+import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
+import java.security.PublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Arrays;
 import java.util.logging.Level;
@@ -18,11 +20,11 @@ public class ConnectionReceive extends Thread {
         while (true) {
             byte[] buffer = new byte[1024];
             DatagramPacket messageIn = new DatagramPacket(buffer, buffer.length);
-            
+
             try {
                 Peer2PeerProject.ms.receive(messageIn);
                 System.out.println("ConnectionReceive\nRecebendo via multicast");
-                receivedString = new String(messageIn.getData());                
+                receivedString = new String(messageIn.getData());
                 String[] saida = receivedString.split("@");
                 System.out.println("ConnectionReceive\narraySaida\n" + Arrays.toString(saida));
 
@@ -43,11 +45,22 @@ public class ConnectionReceive extends Thread {
                                 + Base64.encode(Criptografar.getPublicKey().getEncoded()) + "@"
                                 + Peer2PeerProject.user.getHistorico() + "@";
                         Peer2PeerProject.sendUdp.sendMessage(sendString, messageIn.getAddress(), Integer.valueOf(saida[3]));
-                        String mensagem = saida[1] + " entrou, possui " + saida[4] + " bitcoins";                        
+                        String mensagem = saida[1] + " entrou, possui " + saida[4] + " bitcoins";
                         Peer2PeerProject.user.setHistorico(mensagem);
                         Interface.jTextArea1.setText(Interface.jTextArea1.getText() + "\n" + mensagem);
                         System.out.println("ConnectionReceive\n" + mensagem);
                     }
+                }
+
+                if (receivedString.startsWith("2")) {
+                    PublicKey p = Peer2PeerProject.user.getUserPublicKey(saida[1]);
+                    byte [] aux = saida[2].getBytes();
+                    String mensagem = Criptografar.decriptografaPublica(aux, p); 
+                    String[] saida1 = mensagem.split("@");
+                    mensagem = saida[1] + " aguarda minerar " + saida[2] + " para " + saida[0];
+                    Peer2PeerProject.user.setHistorico(mensagem);
+                    Interface.jTextArea1.setText(Interface.jTextArea1.getText() + "\n" + mensagem);
+                    System.out.println("ConnectionReceive\n" + mensagem);
                 }
 
                 if (receivedString.startsWith("4")) {
