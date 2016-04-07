@@ -38,4 +38,12 @@ public class ConnectionSend {
         messageOut = new DatagramPacket(sendString.getBytes(), sendString.getBytes().length, group, port);
         Peer2PeerProject.ms.send(messageOut);
     }
+
+    public void sendExitMessage() throws UnknownHostException, IOException {
+        String sendString = "4" + "@"
+                + Peer2PeerProject.user.getUserName() + "@";
+        messageOut = new DatagramPacket(sendString.getBytes(), sendString.getBytes().length, group, port);
+        Peer2PeerProject.ms.send(messageOut);
+    }
+
 }

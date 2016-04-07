@@ -89,10 +89,10 @@ public class UserData {
     public void setAddress(String address) {
         this.address = address;
     }
-    
-    public boolean verificaUsuario(String nome){
-        for (int i = 0; i < this.userData.size(); i++) {            
-            if(this.userData.get(i).getUserName().equals(nome)){             
+
+    public boolean verificaUsuario(String nome) {
+        for (int i = 0; i < this.userData.size(); i++) {
+            if (this.userData.get(i).getUserName().equals(nome)) {
                 return true;
             }
         }
@@ -115,6 +115,15 @@ public class UserData {
             return names1;
         } else {
             return names1;
+        }
+    }
+
+    public void removeUsuario(String nome) {
+        for (int i = 0; i < this.userData.size(); i++) {
+            if (this.userData.get(i).getUserName().equals(nome)) {
+                this.userData.remove(i);
+                Peer2PeerProject.tela.jList1.setListData(Peer2PeerProject.user.getUserNamesList());
+            }
         }
     }
 

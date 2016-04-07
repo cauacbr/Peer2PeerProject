@@ -50,6 +50,13 @@ public class ConnectionReceive extends Thread {
                     Interface.jTextArea1.setText(Interface.jTextArea1.getText() + "\n" + mensagem);
                 }
 
+                if (receivedString.startsWith("4")) {
+                    Peer2PeerProject.user.setHistorico(receivedString);
+                    String mensagem = saida[1] + " saiu";
+                    Interface.jTextArea1.setText(Interface.jTextArea1.getText() + "\n" + mensagem);
+                    Peer2PeerProject.user.removeUsuario(saida[1]);
+                }
+
                 //System.out.println(user.getHistorico());
             } catch (InvalidKeySpecException ex) {
                 Logger.getLogger(ConnectionReceive.class.getName()).log(Level.SEVERE, null, ex);
