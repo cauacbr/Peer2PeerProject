@@ -31,7 +31,7 @@ public class UserData {
         newUser.setAddress(address);
         newUser.setPortudp(portudp);
         this.userData.add(newUser);
-        //Peer2PeerProject.tela.jList1.setListData(newUser.getUserName());
+        System.out.println("UserData\nAdicionando novo usuario: " + userName);
     }
 
     public String getUserName() {
@@ -56,6 +56,7 @@ public class UserData {
 
     public void setHistorico(String historico) {
         this.historico = this.historico + "\n" + historico;
+        System.out.println("UserData\nsetHistorico\nHistorico: " + this.historico);
     }
 
     public ArrayList<UserData> getUserData() {
@@ -93,6 +94,7 @@ public class UserData {
     public boolean verificaUsuario(String nome) {
         for (int i = 0; i < this.userData.size(); i++) {
             if (this.userData.get(i).getUserName().equals(nome)) {
+                System.out.println("UserData\nverificaUsuario\nVerifica usuario: " + this.userData.get(i).getUserName() + "true");
                 return true;
             }
         }
@@ -101,8 +103,11 @@ public class UserData {
 
     public String[] getUserNamesList() {
         List<String> names = new ArrayList<>();
+        System.out.println("UserData\nListando nomes de usuarios\ngetUserNamesList()");
         for (int i = 0; i < this.userData.size(); i++) {
             names.add(this.userData.get(i).getUserName());
+            System.out.println(this.userData.get(i).getUserName());
+            
         }
 
         String[] names1 = new String[names.size()];

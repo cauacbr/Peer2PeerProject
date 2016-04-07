@@ -10,6 +10,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,14 +31,15 @@ public class ReceiveUdp extends Thread {
         // create socket at agreed port        
         DatagramPacket request;
         while (true) {
-            byte[] buffer = new byte[1024];
+            byte[] buffer = new byte[2048];
             request = new DatagramPacket(buffer, buffer.length);
             try {
                 udpSocketReceive.receive(request);
                 String receivedString = new String(request.getData());
-
                 Peer2PeerProject.user.setHistorico(receivedString);
                 String[] saida = receivedString.split("@");
+                System.out.println("ReceiveUdp\nRecebido via UDP de " + saida[1]);
+                System.out.println("ReceiveUdp\narraySaida\n" + Arrays.toString(saida));
 
                 if (receivedString.startsWith("1")) {
                     if ((!saida[1].equals(Peer2PeerProject.user.getUserName())) && !(Peer2PeerProject.user.verificaUsuario(saida[1]))) {
@@ -46,14 +48,12 @@ public class ReceiveUdp extends Thread {
                                 Integer.parseInt(saida[3]),
                                 Integer.parseInt(saida[4]),
                                 Criptografar.stringToPublicKey(saida[5]));
-                        Peer2PeerProject.user.setHistorico(saida[6]);
-                        /*for (int j = 0; j < 7; j++) {
-                            System.out.println(saida[j]);
-                        }*/
-
-                        Peer2PeerProject.tela.jList1.setListData(Peer2PeerProject.user.getUserNamesList());
+                        Peer2PeerProject.user.setHistorico(saida[6]);                        
                         String mensagem = saida[1] + " entrou, possui " + saida[4] + " bitcoins";
+                        System.out.println("ReceiveUdp\n" + mensagem);
+                        Peer2PeerProject.user.setHistorico(mensagem);  
                         Interface.jTextArea1.setText(Interface.jTextArea1.getText() + "\n" + mensagem);
+                        Peer2PeerProject.tela.jList1.setListData(Peer2PeerProject.user.getUserNamesList());
                     }
                 }
 
@@ -64,6 +64,9 @@ public class ReceiveUdp extends Thread {
             } catch (NoSuchAlgorithmException ex) {
                 Logger.getLogger(ReceiveUdp.class.getName()).log(Level.SEVERE, null, ex);
             }
+            
+            buffer = null;
+            request = null;
         }
     }
 }

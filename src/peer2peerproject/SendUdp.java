@@ -26,14 +26,16 @@ public class SendUdp {
     public void sendMessage(String sendString, InetAddress host, int serverPort) throws UnknownHostException, IOException, InterruptedException {
 
         byte[] m = sendString.getBytes();
-        InetAddress aHost = InetAddress.getByName(host.getHostName());
-
         DatagramPacket request
-                = new DatagramPacket(m, sendString.length(), aHost, serverPort);
+                = new DatagramPacket(m, sendString.length(), InetAddress.getByName(host.getHostName()), serverPort);
 
+        System.out.println("SendUdp\nsendMessage\nEnviando via UDP: " + sendString);
         Thread.sleep((long) (Math.random() * 10));
         udpSocketSend.send(request);
+        System.out.println("SendUdp\nsendMessage\nEnviado");
 
+        m = null;
+        request = null;
     }
 
 }
