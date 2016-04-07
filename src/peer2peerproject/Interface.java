@@ -6,6 +6,7 @@
 package peer2peerproject;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -55,7 +56,7 @@ public class Interface extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Enviar");
+        jButton1.setText("Comprar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -88,7 +89,7 @@ public class Interface extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE))
                 .addGap(61, 61, 61)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -131,7 +132,14 @@ public class Interface extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if ((jList1.getSelectedValue() != null) && (Integer.valueOf(jTextField1.getText()) > 0)) {
-            Peer2PeerProject.cs.sendBuyMessage(jTextField1.getText(), jList1.getSelectedValue());
+            try {
+                Peer2PeerProject.sendUdp.sendBuyMessageUdp(jTextField1.getText(), jList1.getSelectedValue(),
+                        Peer2PeerProject.user.getUserAddress(jList1.getSelectedValue()), Peer2PeerProject.user.getUserPort(jList1.getSelectedValue()));
+            } catch (UnknownHostException ex) {
+                //Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                //Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

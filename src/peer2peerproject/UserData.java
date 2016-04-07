@@ -1,5 +1,8 @@
 package peer2peerproject;
 
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
@@ -107,7 +110,7 @@ public class UserData {
         for (int i = 0; i < this.userData.size(); i++) {
             names.add(this.userData.get(i).getUserName());
             System.out.println(this.userData.get(i).getUserName());
-            
+
         }
 
         String[] names1 = new String[names.size()];
@@ -132,4 +135,21 @@ public class UserData {
         }
     }
 
+    public InetAddress getUserAddress(String nome) throws UnknownHostException {
+        for (int i = 0; i < this.userData.size(); i++) {
+            if (this.userData.get(i).getUserName().equals(nome)) {                
+                return InetAddress.getByName(this.userData.get(i).getAddress());
+            }
+        }
+        return null;
+    }
+
+    public int getUserPort(String nome) {
+        for (int i = 0; i < this.userData.size(); i++) {
+            if (this.userData.get(i).getUserName().equals(nome)) {
+                return this.userData.get(i).getPortudp();
+            }
+        }
+        return 0;
+    }
 }

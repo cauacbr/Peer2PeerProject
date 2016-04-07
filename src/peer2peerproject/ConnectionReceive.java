@@ -49,12 +49,6 @@ public class ConnectionReceive extends Thread {
                         System.out.println("ConnectionReceive\n" + mensagem);
                     }
                 }
-                if (receivedString.startsWith("2")) {
-                    String mensagem = saida[1] + " compra " + saida[2] + " de " + saida[3] + " pendente";
-                    Peer2PeerProject.user.setHistorico(mensagem);
-                    Interface.jTextArea1.setText(Interface.jTextArea1.getText() + "\n" + mensagem);
-                    System.out.println("ConnectionReceive\n" + mensagem);
-                }
 
                 if (receivedString.startsWith("4")) {
                     String mensagem = saida[1] + " saiu";

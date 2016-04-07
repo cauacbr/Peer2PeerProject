@@ -48,13 +48,23 @@ public class ReceiveUdp extends Thread {
                                 Integer.parseInt(saida[3]),
                                 Integer.parseInt(saida[4]),
                                 Criptografar.stringToPublicKey(saida[5]));
-                        Peer2PeerProject.user.setHistorico(saida[6]);                        
+                        Peer2PeerProject.user.setHistorico(saida[6]);
                         String mensagem = saida[1] + " entrou, possui " + saida[4] + " bitcoins";
                         System.out.println("ReceiveUdp\n" + mensagem);
-                        Peer2PeerProject.user.setHistorico(mensagem);  
+                        Peer2PeerProject.user.setHistorico(mensagem);
                         Interface.jTextArea1.setText(Interface.jTextArea1.getText() + "\n" + mensagem);
                         Peer2PeerProject.tela.jList1.setListData(Peer2PeerProject.user.getUserNamesList());
                     }
+                }
+
+                if (receivedString.startsWith("2")) {
+                    String mensagem = saida[1] + " compra " + saida[3] + " de " + saida[2] + " pendente";
+                    Peer2PeerProject.user.setHistorico(mensagem);
+                    Interface.jTextArea1.setText(Interface.jTextArea1.getText() + "\n" + mensagem);
+                    System.out.println("ConnectionReceive\n" + mensagem);
+                    
+                    
+                    
                 }
 
             } catch (IOException ex) {
@@ -64,7 +74,7 @@ public class ReceiveUdp extends Thread {
             } catch (NoSuchAlgorithmException ex) {
                 Logger.getLogger(ReceiveUdp.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
             buffer = null;
             request = null;
         }
