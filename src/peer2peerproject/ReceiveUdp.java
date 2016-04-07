@@ -5,6 +5,7 @@
  */
 package peer2peerproject;
 
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -63,8 +64,8 @@ public class ReceiveUdp extends Thread {
                     Interface.jTextArea1.setText(Interface.jTextArea1.getText() + "\n" + mensagem);
                     System.out.println("ConnectionReceive\n" + mensagem);
                     mensagem = saida[2] + "@" + saida[3] + "@";
-                    byte [] crip = Criptografar.criptografaPrivada(mensagem, Criptografar.getPrivateKey());
-                    mensagem = "2@" + saida[1] + "@" + Arrays.toString(crip) + "@";               
+                    String crip = Base64.encode(Criptografar.criptografaPrivada(mensagem, Criptografar.getPrivateKey()));
+                    mensagem = "2@" + saida[1] + "@" + crip + "@";               
                     System.out.println("ConnectionReceive\n" + mensagem);
                     Peer2PeerProject.cs.sendMineradores(mensagem);
                 }

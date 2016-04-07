@@ -154,14 +154,16 @@ public class UserData {
     }
     
     public PublicKey getUserPublicKey(String nome) {
-        PublicKey p = null;
+        PublicKey p;
         for (int i = 0; i < this.userData.size(); i++) {
             if (this.userData.get(i).getUserName().equals(nome)) {
                 p = this.userData.get(i).publicKey;
+                System.out.println(p);
                 return p;
+                
             }
         }
-        return p;
+        return null;
     }
     
     

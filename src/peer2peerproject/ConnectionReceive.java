@@ -3,7 +3,6 @@ package peer2peerproject;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import java.io.IOException;
 import java.net.*;
-import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
 import java.security.spec.InvalidKeySpecException;
@@ -53,14 +52,17 @@ public class ConnectionReceive extends Thread {
                 }
 
                 if (receivedString.startsWith("2")) {
-                    PublicKey p = Peer2PeerProject.user.getUserPublicKey(saida[1]);
-                    byte [] aux = saida[2].getBytes();
-                    String mensagem = Criptografar.decriptografaPublica(aux, p); 
-                    String[] saida1 = mensagem.split("@");
-                    mensagem = saida[1] + " aguarda minerar " + saida[2] + " para " + saida[0];
-                    Peer2PeerProject.user.setHistorico(mensagem);
-                    Interface.jTextArea1.setText(Interface.jTextArea1.getText() + "\n" + mensagem);
-                    System.out.println("ConnectionReceive\n" + mensagem);
+                    if (!saida[1].equals(Peer2PeerProject.user.getUserName())) {
+                        boolean b = Peer2PeerProject.user.verificaUsuario(saida[1]);
+                        PublicKey p = Peer2PeerProject.user.getUserPublicKey(saida[1]);
+                        byte[] aux = Base64.decode(saida[2]);
+                        String mensagem = Criptografar.decriptografaPublica(aux, p);
+                        String[] saida1 = mensagem.split("@");
+                        mensagem = saida1[1] + " aguarda minerar " + saida1[2] + " para " + saida1[0];
+                        Peer2PeerProject.user.setHistorico(mensagem);
+                        Interface.jTextArea1.setText(Interface.jTextArea1.getText() + "\n" + mensagem);
+                        System.out.println("ConnectionReceive\n" + mensagem);
+                    }
                 }
 
                 if (receivedString.startsWith("4")) {
