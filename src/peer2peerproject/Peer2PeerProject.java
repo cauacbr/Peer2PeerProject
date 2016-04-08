@@ -8,6 +8,7 @@ import javax.crypto.NoSuchPaddingException;
 
 public class Peer2PeerProject {
 
+    // objetos declarados como estaticos
     public static ConnectionSend cs;
     public static ConnectionReceive cr;
     public static Interface tela;

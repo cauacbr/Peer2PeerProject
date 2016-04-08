@@ -21,12 +21,16 @@ public class ConnectionReceive extends Thread {
             DatagramPacket messageIn = new DatagramPacket(buffer, buffer.length);
 
             try {
+                //recebendo via multicast por Thread
                 Peer2PeerProject.ms.receive(messageIn);
                 System.out.println("ConnectionReceive\nRecebendo via multicast");
                 receivedString = new String(messageIn.getData());
                 String[] saida = receivedString.split("@");
                 System.out.println("ConnectionReceive\narraySaida\n" + Arrays.toString(saida));
 
+                //cada string recebida possui um identificador
+                // 1 = novo usuario; 2 = solicitacao de minerar pendente; 3 = realizacao da aão de minerar; 4 = saida de usuario
+                
                 if (receivedString.startsWith("1")) {
                     if ((!saida[1].equals(Peer2PeerProject.user.getUserName())) && !(Peer2PeerProject.user.verificaUsuario(saida[1]))) {
                         Peer2PeerProject.user.addUserToList(saida[1],

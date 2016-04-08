@@ -15,6 +15,7 @@ public class ConnectionSend {
         this.port = port;
     }
 
+    //envia solicitacao para os mineradores realizarem a acao
     public void sendMineradores(String sendString) throws IOException {
         messageOut = new DatagramPacket(sendString.getBytes(), sendString.getBytes().length, group, port);
         Peer2PeerProject.ms.send(messageOut);
@@ -23,6 +24,7 @@ public class ConnectionSend {
 
     }
 
+    //envia a primeir mensagem de comunicação
     public void sendFirstMessage() throws UnknownHostException, IOException {
         String sendString = "1@"
                 + Peer2PeerProject.user.getUserName() + "@"
@@ -36,6 +38,7 @@ public class ConnectionSend {
         System.out.println("ConnectionSend\nEnviando primentira mensagem de login");
     }
 
+    //envia mensagem para sair do grupo
     public void sendExitMessage() throws UnknownHostException, IOException {
         String sendString = "4@"
                 + Peer2PeerProject.user.getUserName() + "@";
@@ -45,6 +48,7 @@ public class ConnectionSend {
         System.out.println("ConnectionSend\nEnviando mensagem de logout");
     }
 
+    //realiza a acao de minerar no local e envia para o demais participantes concluirem a ação nos seus bd.
     public void sendMinerar(String mensagem) throws IOException {
         String[] saida = mensagem.split("@");
         if (Peer2PeerProject.user.getUserDataByName(saida[1]).getBitcoin() > Integer.valueOf(saida[2])) {

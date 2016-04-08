@@ -23,6 +23,7 @@ public class SendUdp {
         this.udpSocketSend = udpSocketSend;
     }
 
+    //envia mensagem generica por udp
     public void sendMessage(String sendString, InetAddress host, int serverPort) throws UnknownHostException, IOException, InterruptedException {
 
         byte[] m = sendString.getBytes();
@@ -37,6 +38,7 @@ public class SendUdp {
         request = null;
     }
 
+    //envia mensagem de compra para vendedors
     public void sendBuyMessageUdp(String valor, String vendedor, InetAddress host, int serverPort) throws UnknownHostException, IOException {
         String sendString = "2@" + Peer2PeerProject.user.getUserName() + "@" + vendedor+ "@" + valor + "@";
         byte[] m = sendString.getBytes();

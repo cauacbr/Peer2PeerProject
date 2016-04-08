@@ -6,6 +6,7 @@ import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 
+//carteira do usuario
 public class UserData {
 
     private String userName;

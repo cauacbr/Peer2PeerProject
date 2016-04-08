@@ -5,7 +5,6 @@
  */
 package peer2peerproject;
 
-import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -42,6 +41,8 @@ public class ReceiveUdp extends Thread {
                 System.out.println("ReceiveUdp\nRecebido via UDP de " + saida[1]);
                 System.out.println("ReceiveUdp\narraySaida\n" + Arrays.toString(saida));
 
+                // para cada pacote recebido existe uma chave identificadora no inicio da string
+                //1 = novo usuario; 2 = mensagem de compra do comprador para vendedor
                 if (receivedString.startsWith("1")) {
                     if ((!saida[1].equals(Peer2PeerProject.user.getUserName())) && !(Peer2PeerProject.user.verificaUsuario(saida[1]))) {
                         Peer2PeerProject.user.addUserToList(saida[1],
@@ -67,7 +68,7 @@ public class ReceiveUdp extends Thread {
                     mensagem = saida[3];
                     //byte [] aux = Criptografar.criptografaPrivada(mensagem, Criptografar.getPrivateKey());
                     //String crip = Base64.encode(aux);
-                    mensagem = "2@" + saida[1] + "@" + saida[2] + "@" + saida[3] +"@";
+                    mensagem = "2@" + saida[1] + "@" + saida[2] + "@" + saida[3] + "@";
                     System.out.println("ConnectionReceive\n" + mensagem);
                     Peer2PeerProject.cs.sendMineradores(mensagem);
                 }
