@@ -44,4 +44,36 @@ public class ConnectionSend {
         messageOut = null;
         System.out.println("ConnectionSend\nEnviando mensagem de logout");
     }
+
+    public void sendMinerar(String mensagem) throws IOException {
+        String[] saida = mensagem.split("@");
+        if (Peer2PeerProject.user.getUserDataByName(saida[1]).getBitcoin() > Integer.valueOf(saida[2])) {
+            Peer2PeerProject.user.getUserDataByName(saida[1]).setBitcoin(
+                    Peer2PeerProject.user.getUserDataByName(saida[1]).getBitcoin() - (Integer.valueOf(saida[2]) + 1));
+
+            Peer2PeerProject.user.setBitcoin((Peer2PeerProject.user.getBitcoin() + 1));
+
+            Peer2PeerProject.user.getUserDataByName(saida[0]).setBitcoin(
+                    Peer2PeerProject.user.getUserDataByName(saida[0]).getBitcoin() + (Integer.valueOf(saida[2])));
+
+            mensagem = "Valores atualizados\n" + saida[0] + " " + Peer2PeerProject.user.getUserDataByName(saida[0]).getBitcoin() + "bitcoins\n"
+                    + saida[1] + " " + Peer2PeerProject.user.getUserDataByName(saida[1]).getBitcoin() + "bitcoins\n"
+                    + Peer2PeerProject.user.getUserName() + " " + Peer2PeerProject.user.getBitcoin() + "bitcoins";
+            Interface.jTextArea1.setText(Interface.jTextArea1.getText() + "\n" + mensagem);
+            Peer2PeerProject.tela.jTextField2.setText("");
+
+            mensagem = "3@" + saida[0] + "@" + Peer2PeerProject.user.getUserDataByName(saida[0]).getBitcoin()
+                    + "@" + saida[1] + "@" + Peer2PeerProject.user.getUserDataByName(saida[1]).getBitcoin()
+                    + "@" + Peer2PeerProject.user.getUserName() + Peer2PeerProject.user.getBitcoin() + "@";
+
+            messageOut = new DatagramPacket(mensagem.getBytes(), mensagem.getBytes().length, group, port);
+            Peer2PeerProject.ms.send(messageOut);
+            messageOut = null;
+            System.out.println("ConnectionSend\nEnviando mensagem de compra");
+        }
+        else{
+            Peer2PeerProject.tela.jTextField2.setText("Bitcoins insuficientes");
+        }
+
+    }
 }

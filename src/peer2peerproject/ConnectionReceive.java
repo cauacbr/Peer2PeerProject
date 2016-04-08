@@ -9,8 +9,6 @@ import java.security.spec.InvalidKeySpecException;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
 
 public class ConnectionReceive extends Thread {
 
@@ -59,13 +57,18 @@ public class ConnectionReceive extends Thread {
 //                         String aux1 = saida[3];
 //                        byte[] aux = Base64.decode(aux1);
 //                        String mensagem = Criptografar.decriptografaPublica(aux, p);
-                        String mensagem = saida[3];
-                        System.out.println("Mensagem descriptografada: " + mensagem);
-                        mensagem = saida[1] + " aguarda minerar " + mensagem + " para " + saida[2];
+                        String mensagem;
+                        //System.out.println("Mensagem descriptografada: " + mensagem);
+                        mensagem = saida[1] + " aguarda minerar " + saida[3] + " para " + saida[2];
                         Peer2PeerProject.user.setHistorico(mensagem);
                         Interface.jTextArea1.setText(Interface.jTextArea1.getText() + "\n" + mensagem);
                         System.out.println("ConnectionReceive\n" + mensagem);
+                        Peer2PeerProject.tela.jTextField2.setText((saida[1] + "@" + saida[2] + "@" + saida[3]));
                     }
+                }
+
+                if (receivedString.startsWith("2")) {
+
                 }
 
                 if (receivedString.startsWith("4")) {
