@@ -56,11 +56,12 @@ public class ConnectionReceive extends Thread {
                 if (receivedString.startsWith("2")) {
                     if ((!saida[1].equals(Peer2PeerProject.user.getUserName())) && (!saida[2].equals(Peer2PeerProject.user.getUserName()))) {
                         PublicKey p = Peer2PeerProject.user.getUserPublicKey(saida[1]);
-                        byte[] aux = Base64.decode(saida[3]);
-                        String mensagem = Criptografar.decriptografaPublica(aux, p);
+//                         String aux1 = saida[3];
+//                        byte[] aux = Base64.decode(aux1);
+//                        String mensagem = Criptografar.decriptografaPublica(aux, p);
+                        String mensagem = saida[3];
                         System.out.println("Mensagem descriptografada: " + mensagem);
-                        String[] saida1 = mensagem.split("@");
-                        mensagem = saida[1] + " aguarda minerar " + saida1[0] + " para " + saida[2];
+                        mensagem = saida[1] + " aguarda minerar " + mensagem + " para " + saida[2];
                         Peer2PeerProject.user.setHistorico(mensagem);
                         Interface.jTextArea1.setText(Interface.jTextArea1.getText() + "\n" + mensagem);
                         System.out.println("ConnectionReceive\n" + mensagem);
@@ -83,10 +84,6 @@ public class ConnectionReceive extends Thread {
             } catch (IOException ex) {
                 Logger.getLogger(ConnectionReceive.class.getName()).log(Level.SEVERE, null, ex);
             } catch (InterruptedException ex) {
-                Logger.getLogger(ConnectionReceive.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IllegalBlockSizeException ex) {
-                Logger.getLogger(ConnectionReceive.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (BadPaddingException ex) {
                 Logger.getLogger(ConnectionReceive.class.getName()).log(Level.SEVERE, null, ex);
             }
 

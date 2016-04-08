@@ -108,7 +108,7 @@ public class Criptografar {
         try {            
             // Decriptografa o texto puro usando a chave Privada
             cipher.init(Cipher.DECRYPT_MODE, chave);
-            dectyptedText = cipher.update(texto);
+            dectyptedText = cipher.doFinal(texto);
 
         } catch (InvalidKeyException ex) {
             System.out.println(ex.getCause());

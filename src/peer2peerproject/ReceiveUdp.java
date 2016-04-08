@@ -64,9 +64,9 @@ public class ReceiveUdp extends Thread {
                     Interface.jTextArea1.setText(Interface.jTextArea1.getText() + "\n" + mensagem);
                     System.out.println("ConnectionReceive\nRecebido via UDP\n" + mensagem);
                     mensagem = saida[3];
-                    byte [] aux = Criptografar.criptografaPrivada(mensagem, Criptografar.getPrivateKey());
-                    String crip = Base64.encode(aux);
-                    mensagem = "2@" + saida[1] + "@" + saida[2] + "@" + crip + "@";
+                    //byte [] aux = Criptografar.criptografaPrivada(mensagem, Criptografar.getPrivateKey());
+                    //String crip = Base64.encode(aux);
+                    mensagem = "2@" + saida[1] + "@" + saida[2] + "@" + saida[3] +"@";
                     System.out.println("ConnectionReceive\n" + mensagem);
                     Peer2PeerProject.cs.sendMineradores(mensagem);
                 }
