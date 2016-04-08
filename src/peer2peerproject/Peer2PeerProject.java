@@ -41,6 +41,7 @@ public class Peer2PeerProject {
         cr.start();
         tela = new Interface();
         tela.setVisible(true);
+        tela.setTitle(user.getUserName());
         cs.sendFirstMessage();
 
     }
