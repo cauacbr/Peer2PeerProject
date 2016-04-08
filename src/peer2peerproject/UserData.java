@@ -5,6 +5,10 @@ import java.net.UnknownHostException;
 import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
 
 //carteira do usuario
 public class UserData {
@@ -175,5 +179,55 @@ public class UserData {
             }
         }
         return null;
+    }
+
+    public PublicKey getUserByAddresPort(String address, int port) {
+        PublicKey p = null;
+        for (int i = 0; i < Peer2PeerProject.user.userData.size(); i++) {
+            if (Peer2PeerProject.user.userData.get(i).getAddress().equals(address)) {
+                if (Peer2PeerProject.user.userData.get(i).getPortudp() == port) {
+                    p = Peer2PeerProject.user.userData.get(i).getPublicKey();
+                    System.out.println("Usuario encontrado por address+port: " + Peer2PeerProject.user.userData.get(i).getUserName());
+                    System.out.println("Chave Publica " + p);
+                    return p;
+                }
+            }
+        }
+        System.out.println("Não encontrado usuario por address+port: ");
+        return p;
+    }
+
+    public int getIndexUserPublicKey(byte[] message) {
+        int i = 0;
+        while (i < Peer2PeerProject.user.userData.size()) {
+            try {
+                if (!Criptografar.decriptografaPublica(message, Peer2PeerProject.user.userData.get(i).getPublicKey()).equals(null)) {
+                    return i;
+                    /*String mensagem = Criptografar.decriptografaPublica(aux, Peer2PeerProject.user.userData.get(i).getPublicKey());
+                    System.out.println("Mensagem descriptografada: " + mensagem);*/
+                }
+            } catch (IllegalBlockSizeException ex) {
+            } catch (BadPaddingException ex) {
+            }
+            i++;
+        }
+        return 0;
+    }
+
+    public boolean getboleanUserPublicKey(byte[] message) {
+        int i = 0;
+        while (i < Peer2PeerProject.user.userData.size()) {
+            try {
+                if (!Criptografar.decriptografaPublica(message, Peer2PeerProject.user.userData.get(i).getPublicKey()).equals(null)) {
+                    return true;
+                    /*String mensagem = Criptografar.decriptografaPublica(aux, Peer2PeerProject.user.userData.get(i).getPublicKey());
+                    System.out.println("Mensagem descriptografada: " + mensagem);*/
+                }
+            } catch (IllegalBlockSizeException ex) {
+            } catch (BadPaddingException ex) {
+            }
+            i++;
+        }
+        return false;
     }
 }

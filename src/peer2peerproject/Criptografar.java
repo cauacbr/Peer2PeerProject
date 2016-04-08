@@ -39,7 +39,7 @@ public class Criptografar {
         keyGen.initialize(1024);
         KeyPair key = keyGen.generateKeyPair();
         privateKey = key.getPrivate();
-        publicKey = key.getPublic();        
+        publicKey = key.getPublic();
     }
 
     public static PrivateKey getPrivateKey() {
@@ -105,16 +105,15 @@ public class Criptografar {
     public static String decriptografaPublica(byte[] texto, PublicKey chave) throws IllegalBlockSizeException, BadPaddingException {
         byte[] dectyptedText = null;
 
-        try {            
+        try {
             // Decriptografa o texto puro usando a chave Privada
             cipher.init(Cipher.DECRYPT_MODE, chave);
             dectyptedText = cipher.doFinal(texto);
-
         } catch (InvalidKeyException ex) {
-            System.out.println(ex.getCause());
+            System.out.println(ex.getStackTrace() + "\n" + ex.getCause());
         }
-
         return new String(dectyptedText);
+
     }
 
     //CONVERTER STRINGS PARA KEY

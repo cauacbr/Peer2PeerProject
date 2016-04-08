@@ -4,11 +4,12 @@ import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import java.io.IOException;
 import java.net.*;
 import java.security.NoSuchAlgorithmException;
-import java.security.PublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
 
 public class ConnectionReceive extends Thread {
 
@@ -29,8 +30,7 @@ public class ConnectionReceive extends Thread {
                 System.out.println("ConnectionReceive\narraySaida\n" + Arrays.toString(saida));
 
                 //cada string recebida possui um identificador
-                // 1 = novo usuario; 2 = solicitacao de minerar pendente; 3 = realizacao da aão de minerar; 4 = saida de usuario
-                
+                // 1 = novo usuario; 2 = solicitacao de minerar pendente; 3 = realizacao da aão de minerar; 4 = saida de usuario; else = solicitacao de minerar pendente com criptografia
                 if (receivedString.startsWith("1")) {
                     if ((!saida[1].equals(Peer2PeerProject.user.getUserName())) && !(Peer2PeerProject.user.verificaUsuario(saida[1]))) {
                         Peer2PeerProject.user.addUserToList(saida[1],
@@ -53,9 +53,7 @@ public class ConnectionReceive extends Thread {
                         Interface.jTextArea1.setText(Interface.jTextArea1.getText() + "\n" + mensagem);
                         System.out.println("ConnectionReceive\n" + mensagem);
                     }
-                }
-
-                if (receivedString.startsWith("2")) {
+                } /*else if (receivedString.startsWith("2")) {
                     if ((!saida[1].equals(Peer2PeerProject.user.getUserName())) && (!saida[2].equals(Peer2PeerProject.user.getUserName()))) {
                         PublicKey p = Peer2PeerProject.user.getUserPublicKey(saida[1]);
                         //aqui falta criptografia
@@ -70,9 +68,7 @@ public class ConnectionReceive extends Thread {
                         System.out.println("ConnectionReceive\n" + mensagem);
                         Peer2PeerProject.tela.jTextField2.setText((saida[1] + "@" + saida[2] + "@" + saida[3]));
                     }
-                }
-
-                if (receivedString.startsWith("3")) {
+                }*/ else if (receivedString.startsWith("3")) {
                     if (saida[1].equals(Peer2PeerProject.user.getUserName())) {
                         Peer2PeerProject.user.setBitcoin(Integer.valueOf(saida[2]));
                         Peer2PeerProject.user.getUserDataByName(saida[3]).setBitcoin(Integer.valueOf(saida[4]));
@@ -96,15 +92,28 @@ public class ConnectionReceive extends Thread {
                             + saida[5] + " " + saida[6] + " bitcoins";
                     Interface.jTextArea1.setText(Interface.jTextArea1.getText() + "\n" + mensagem);
                     Peer2PeerProject.tela.jTextField2.setText("");
-                }
-                if (receivedString.startsWith("4")) {
+                } else if (receivedString.startsWith("4")) {
                     String mensagem = saida[1] + " saiu";
                     Peer2PeerProject.user.setHistorico(mensagem);
                     Interface.jTextArea1.setText(Interface.jTextArea1.getText() + "\n" + mensagem);
                     Peer2PeerProject.user.removeUsuario(saida[1]);
                     System.out.println("ConnectionReceive\n" + mensagem);
-                }
+                } else {
+                    byte[] aux = Base64.decode(receivedString.trim());
+                    if (Peer2PeerProject.user.getboleanUserPublicKey(aux)) {
+                        int i = Peer2PeerProject.user.getIndexUserPublicKey(aux);
+                        String mensagem = Criptografar.decriptografaPublica(aux, Peer2PeerProject.user.userData.get(i).getPublicKey());
+                        String[] saida1 = mensagem.split("@");
+                        if ((!saida1[1].equals(Peer2PeerProject.user.getUserName())) && (!saida1[2].equals(Peer2PeerProject.user.getUserName()))) {
+                            mensagem = saida1[1] + " aguarda minerar " + saida1[3] + " para " + saida1[2];
+                            Peer2PeerProject.user.setHistorico(mensagem);
+                            Interface.jTextArea1.setText(Interface.jTextArea1.getText() + "\n" + mensagem);
+                            System.out.println("ConnectionReceive\n" + mensagem);
+                            Peer2PeerProject.tela.jTextField2.setText((saida1[1] + "@" + saida1[2] + "@" + saida1[3]));
+                        }
 
+                    }
+                }
             } catch (IOException ex) {
                 Logger.getLogger(ConnectionReceive.class.getName()).log(Level.SEVERE, null, ex);
             } catch (InterruptedException ex) {
@@ -112,6 +121,10 @@ public class ConnectionReceive extends Thread {
             } catch (InvalidKeySpecException ex) {
                 Logger.getLogger(ConnectionReceive.class.getName()).log(Level.SEVERE, null, ex);
             } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(ConnectionReceive.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalBlockSizeException ex) {
+                Logger.getLogger(ConnectionReceive.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (BadPaddingException ex) {
                 Logger.getLogger(ConnectionReceive.class.getName()).log(Level.SEVERE, null, ex);
             }
 

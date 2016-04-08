@@ -5,6 +5,7 @@
  */
 package peer2peerproject;
 
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -65,13 +66,11 @@ public class ReceiveUdp extends Thread {
                     Peer2PeerProject.user.setHistorico(mensagem);
                     Interface.jTextArea1.setText(Interface.jTextArea1.getText() + "\n" + mensagem);
                     System.out.println("ConnectionReceive\nRecebido via UDP\n" + mensagem);
-                    mensagem = saida[3];
-                    //aqui falta criptografia
-                    //byte [] aux = Criptografar.criptografaPrivada(mensagem, Criptografar.getPrivateKey());
-                    //String crip = Base64.encode(aux);
                     mensagem = "2@" + saida[1] + "@" + saida[2] + "@" + saida[3] + "@";
-                    System.out.println("ConnectionReceive\n" + mensagem);
-                    Peer2PeerProject.cs.sendMineradores(mensagem);
+                    byte [] aux = Criptografar.criptografaPrivada(mensagem, Criptografar.getPrivateKey());
+                    String crip = Base64.encode(aux);                    
+                    System.out.println("ConnectionReceive\n" + crip);
+                    Peer2PeerProject.cs.sendMineradores(crip.trim());
                 }
 
             } catch (IOException ex) {
