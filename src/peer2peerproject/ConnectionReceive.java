@@ -42,7 +42,7 @@ public class ConnectionReceive extends Thread {
                                 + Peer2PeerProject.udpSocket.getLocalPort() + "@"
                                 + Peer2PeerProject.user.getBitcoin() + "@"
                                 + Base64.encode(Criptografar.getPublicKey().getEncoded()) + "@"
-                                + Peer2PeerProject.user.getHistorico() + "@";
+                                + Interface.jTextArea1.getText() + "@";
                         Peer2PeerProject.sendUdp.sendMessage(sendString, messageIn.getAddress(), Integer.valueOf(saida[3]));
                         String mensagem = saida[1] + " entrou, possui " + saida[4] + " bitcoins";
                         Peer2PeerProject.user.setHistorico(mensagem);
@@ -90,6 +90,7 @@ public class ConnectionReceive extends Thread {
                             + saida[3] + " " + saida[4] + " bitcoins\n"
                             + saida[5] + " " + saida[6] + " bitcoins";
                     Interface.jTextArea1.setText(Interface.jTextArea1.getText() + "\n" + mensagem);
+                    Peer2PeerProject.tela.jTextField2.setText("");
                 }
                 if (receivedString.startsWith("4")) {
                     String mensagem = saida[1] + " saiu";

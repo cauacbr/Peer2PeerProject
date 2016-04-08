@@ -50,6 +50,7 @@ public class ReceiveUdp extends Thread {
                                 Integer.parseInt(saida[4]),
                                 Criptografar.stringToPublicKey(saida[5]));
                         Peer2PeerProject.user.setHistorico(saida[6]);
+                        Peer2PeerProject.tela.jTextArea1.setText(saida[6]);
                         String mensagem = saida[1] + " entrou, possui " + saida[4] + " bitcoins";
                         System.out.println("ReceiveUdp\n" + mensagem);
                         Peer2PeerProject.user.setHistorico(mensagem);
