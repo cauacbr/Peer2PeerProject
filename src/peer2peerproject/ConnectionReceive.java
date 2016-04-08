@@ -67,10 +67,30 @@ public class ConnectionReceive extends Thread {
                     }
                 }
 
-                if (receivedString.startsWith("2")) {
+                if (receivedString.startsWith("3")) {
+                    if (saida[1].equals(Peer2PeerProject.user.getUserName())) {
+                        Peer2PeerProject.user.setBitcoin(Integer.valueOf(saida[2]));
+                        Peer2PeerProject.user.getUserDataByName(saida[3]).setBitcoin(Integer.valueOf(saida[4]));
+                        Peer2PeerProject.user.getUserDataByName(saida[5]).setBitcoin(Integer.valueOf(saida[6]));
+                    } else if (saida[3].equals(Peer2PeerProject.user.getUserName())) {
+                        Peer2PeerProject.user.getUserDataByName(saida[1]).setBitcoin(Integer.valueOf(saida[2]));
+                        Peer2PeerProject.user.setBitcoin(Integer.valueOf(saida[4]));
+                        Peer2PeerProject.user.getUserDataByName(saida[5]).setBitcoin(Integer.valueOf(saida[6]));
+                    } else if (saida[5].equals(Peer2PeerProject.user.getUserName())) {
+                        Peer2PeerProject.user.getUserDataByName(saida[1]).setBitcoin(Integer.valueOf(saida[2]));
+                        Peer2PeerProject.user.getUserDataByName(saida[3]).setBitcoin(Integer.valueOf(saida[4]));
+                        Peer2PeerProject.user.setBitcoin(Integer.valueOf(saida[6]));
+                    } else {
+                        Peer2PeerProject.user.getUserDataByName(saida[1]).setBitcoin(Integer.valueOf(saida[2]));
+                        Peer2PeerProject.user.getUserDataByName(saida[3]).setBitcoin(Integer.valueOf(saida[4]));
+                        Peer2PeerProject.user.getUserDataByName(saida[5]).setBitcoin(Integer.valueOf(saida[6]));
+                    }
 
+                    String mensagem = "Valores atualizados\n" + saida[1] + " " + saida[2] + " bitcoins\n"
+                            + saida[3] + " " + saida[4] + " bitcoins\n"
+                            + saida[5] + " " + saida[6] + " bitcoins";
+                    Interface.jTextArea1.setText(Interface.jTextArea1.getText() + "\n" + mensagem);
                 }
-
                 if (receivedString.startsWith("4")) {
                     String mensagem = saida[1] + " saiu";
                     Peer2PeerProject.user.setHistorico(mensagem);
@@ -79,14 +99,13 @@ public class ConnectionReceive extends Thread {
                     System.out.println("ConnectionReceive\n" + mensagem);
                 }
 
-                //System.out.println(user.getHistorico());
-            } catch (InvalidKeySpecException ex) {
-                Logger.getLogger(ConnectionReceive.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (NoSuchAlgorithmException ex) {
-                Logger.getLogger(ConnectionReceive.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
                 Logger.getLogger(ConnectionReceive.class.getName()).log(Level.SEVERE, null, ex);
             } catch (InterruptedException ex) {
+                Logger.getLogger(ConnectionReceive.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InvalidKeySpecException ex) {
+                Logger.getLogger(ConnectionReceive.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (NoSuchAlgorithmException ex) {
                 Logger.getLogger(ConnectionReceive.class.getName()).log(Level.SEVERE, null, ex);
             }
 

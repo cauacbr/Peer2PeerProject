@@ -96,10 +96,11 @@ public class UserData {
     public boolean verificaUsuario(String nome) {
         for (int i = 0; i < this.userData.size(); i++) {
             if (this.userData.get(i).getUserName().equals(nome)) {
-                System.out.println("UserData\nverificaUsuario\nVerifica usuario: " + this.userData.get(i).getUserName() + "true");
+                System.out.println("UserData\nverificaUsuario\nVerifica usuario: " + this.userData.get(i).getUserName() + " true");
                 return true;
             }
         }
+        System.out.println("UserData\nverificaUsuario\nVerifica usuario: " + nome + " false");
         return false;
     }
 

@@ -56,15 +56,15 @@ public class ConnectionSend {
             Peer2PeerProject.user.getUserDataByName(saida[0]).setBitcoin(
                     Peer2PeerProject.user.getUserDataByName(saida[0]).getBitcoin() + (Integer.valueOf(saida[2])));
 
-            mensagem = "Valores atualizados\n" + saida[0] + " " + Peer2PeerProject.user.getUserDataByName(saida[0]).getBitcoin() + "bitcoins\n"
-                    + saida[1] + " " + Peer2PeerProject.user.getUserDataByName(saida[1]).getBitcoin() + "bitcoins\n"
-                    + Peer2PeerProject.user.getUserName() + " " + Peer2PeerProject.user.getBitcoin() + "bitcoins";
+            mensagem = "Valores atualizados\n" + saida[0] + " " + Peer2PeerProject.user.getUserDataByName(saida[0]).getBitcoin() + " bitcoins\n"
+                    + saida[1] + " " + Peer2PeerProject.user.getUserDataByName(saida[1]).getBitcoin() + " bitcoins\n"
+                    + Peer2PeerProject.user.getUserName() + " " + Peer2PeerProject.user.getBitcoin() + " bitcoins";
             Interface.jTextArea1.setText(Interface.jTextArea1.getText() + "\n" + mensagem);
             Peer2PeerProject.tela.jTextField2.setText("");
 
             mensagem = "3@" + saida[0] + "@" + Peer2PeerProject.user.getUserDataByName(saida[0]).getBitcoin()
                     + "@" + saida[1] + "@" + Peer2PeerProject.user.getUserDataByName(saida[1]).getBitcoin()
-                    + "@" + Peer2PeerProject.user.getUserName() + Peer2PeerProject.user.getBitcoin() + "@";
+                    + "@" + Peer2PeerProject.user.getUserName() + "@" + Peer2PeerProject.user.getBitcoin() + "@";
 
             messageOut = new DatagramPacket(mensagem.getBytes(), mensagem.getBytes().length, group, port);
             Peer2PeerProject.ms.send(messageOut);

@@ -149,7 +149,11 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        Peer2PeerProject.cs.sendMinerar(Peer2PeerProject.tela.jTextField2.getText());
+        try {
+            Peer2PeerProject.cs.sendMinerar(Peer2PeerProject.tela.jTextField2.getText());
+        } catch (IOException ex) {
+            Logger.getLogger(Interface.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void windowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowClosing
